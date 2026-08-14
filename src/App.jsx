@@ -241,7 +241,7 @@ function App() {
       `Name: ${name}\nEmail: ${email}\nProject type: ${selectedBuild}\nGoal: ${selectedGoal}\n\nProject details:\n${message}`
     )
 
-    window.location.href = `mailto:hello@genkstudios.com?subject=${subject}&body=${body}`
+    window.location.href = `mailto:genkstudios05@gmail.com?subject=${subject}&body=${body}`
     setFormSubmitted(true)
   }
 
@@ -540,7 +540,7 @@ function App() {
                 <p>
                   {selectedBuild} for {selectedGoal.toLowerCase()}.
                 </p>
-                <a href="mailto:hello@genkstudios.com?subject=Project%20Inquiry" className="btn btn-primary">
+                <a href="mailto:genkstudios05@gmail.com?subject=Project%20Inquiry" className="btn btn-primary">
                   Let&apos;s build it
                 </a>
               </div>
@@ -584,7 +584,7 @@ function App() {
                 <span>enk studios</span>
               </a>
               <p>Independent digital product studio for ambitious businesses.</p>
-              <a className="footer-email" href="mailto:hello@genkstudios.com">hello@genkstudios.com</a>
+              <a className="footer-email" href="mailto:genkstudios05@gmail.com">genkstudios05@gmail.com</a>
             </div>
 
             <div className="footer-column">
@@ -607,7 +607,7 @@ function App() {
 
             <div className="footer-column">
               <h2>Connect</h2>
-              <a href="mailto:hello@genkstudios.com">Email us</a>
+              <a href="mailto:genkstudios05@gmail.com">Email us</a>
               <a href="https://github.com/iveensmith" target="_blank" rel="noreferrer">GitHub</a>
               <a href="#contact">Start a project</a>
             </div>

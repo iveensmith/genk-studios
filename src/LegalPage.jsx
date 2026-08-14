@@ -33,7 +33,7 @@ const termsSections = [
   },
   {
     title: '8. Changes and governing law',
-    content: 'We may update these terms as our website or services evolve. Changes take effect when posted with a revised effective date. These terms are governed by the laws applicable in the jurisdiction where Genk Studios is established, without regard to conflict-of-law rules. For questions, email hello@genkstudios.com.',
+    content: 'We may update these terms as our website or services evolve. Changes take effect when posted with a revised effective date. These terms are governed by the laws applicable in the jurisdiction where Genk Studios is established, without regard to conflict-of-law rules. For questions, email genkstudios05@gmail.com.',
   },
 ]
 
@@ -64,11 +64,11 @@ const privacySections = [
   },
   {
     title: '7. Your rights',
-    content: 'Depending on your location, you may have the right to request access to, correction of, deletion of, restriction of or portability of your personal information, and to object to certain processing. You may also withdraw consent where processing is based on consent. To make a request, email hello@genkstudios.com. We may need to verify your identity before responding.',
+    content: 'Depending on your location, you may have the right to request access to, correction of, deletion of, restriction of or portability of your personal information, and to object to certain processing. You may also withdraw consent where processing is based on consent. To make a request, email genkstudios05@gmail.com. We may need to verify your identity before responding.',
   },
   {
     title: '8. Children and policy updates',
-    content: 'Our website and services are not directed to children, and we do not knowingly collect personal information from children. We may update this policy to reflect changes to our practices or legal obligations. The latest version will always be posted here with an updated effective date. For privacy questions or requests, contact hello@genkstudios.com.',
+    content: 'Our website and services are not directed to children, and we do not knowingly collect personal information from children. We may update this policy to reflect changes to our practices or legal obligations. The latest version will always be posted here with an updated effective date. For privacy questions or requests, contact genkstudios05@gmail.com.',
   },
 ]
 

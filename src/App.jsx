@@ -105,7 +105,7 @@ const workItems = [
 
 const caseStudies = [
   {
-    title: 'MediQuest',
+    title: 'MediPlus',
     category: 'Healthcare platform',
     summary:
       'A digital platform experience designed to simplify patient access, improve trust and support a more premium healthcare journey.',

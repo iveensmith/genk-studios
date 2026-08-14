@@ -217,8 +217,8 @@ img { display: block; max-width: 100%; }
   opacity: 0.35;
   pointer-events: none;
   transform: translate3d(
-    calc(var(--pointer-x, 0px) * 0.5 + var(--scroll-parallax, 0px)),
-    calc(var(--pointer-y, 0px) * 0.5 + var(--scroll-parallax, 0px) * 0.6),
+    calc(var(--pointer-x, 0px) * 0.5),
+    calc(var(--pointer-y, 0px) * 0.5),
     0
   );
   transition: transform 0.3s ease-out;
@@ -421,7 +421,6 @@ img { display: block; max-width: 100%; }
   border-radius: 26px;
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
   background-color: rgba(0, 0, 0, 0.75);
   background-blend-mode: multiply;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 8px 32px rgba(0,0,0,0.3);

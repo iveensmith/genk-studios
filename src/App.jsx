@@ -47,6 +47,12 @@ const services = [
     description:
       'AI-powered tools, workflows and digital products that reduce repetitive work and unlock faster execution.',
   },
+  {
+    number: '07',
+    title: 'Voice Agents',
+    description:
+      'Conversational voice agents that answer calls, qualify leads and give customers useful support around the clock.',
+  },
 ]
 
 const principles = [
@@ -144,7 +150,7 @@ const testimonials = [
   {
     quote:
       'Genk Studios completely transformed how our product looks and feels. The process was thoughtful, sharp and genuinely collaborative from start to finish.',
-    name: 'John Doe',
+    name: 'Kini Smith',
     role: 'Founder, Company',
   },
   {
@@ -180,7 +186,6 @@ const goalOptions = [
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [pointer, setPointer] = useState({ x: 0, y: 0 })
-  const [scrollY, setScrollY] = useState(0)
   const [selectedBuild, setSelectedBuild] = useState('Website')
   const [selectedGoal, setSelectedGoal] = useState('Launch something new')
   const [formSubmitted, setFormSubmitted] = useState(false)
@@ -207,15 +212,6 @@ function App() {
     revealItems.forEach((item) => observer.observe(item))
 
     return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   const toggleMenu = () => setMenuOpen((prev) => !prev)
@@ -306,7 +302,6 @@ function App() {
             style={{
               '--pointer-x': `${pointer.x * 16}px`,
               '--pointer-y': `${pointer.y * 14}px`,
-              '--scroll-parallax': `${scrollY * 0.3}px`,
             }}
           >
             <div className="hero-orb orb-one" />
@@ -336,7 +331,7 @@ function App() {
               </div>
 
               <div className="hero-tagline reveal-up reveal-delay-3">
-                Web Design • Development • Branding • Digital Products
+                Web Design • Development • Branding • Digital Products • AI Automation • Voice Agents
               </div>
             </div>
 

@@ -113,19 +113,19 @@ const caseStudies = [
     image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=900&fit=crop',
   },
   {
-    title: 'Brand relaunch',
-    category: 'Startup repositioning',
+    title: 'Asterra',
+    category: 'Brand concept',
     summary:
-      'A complete brand and web refresh for a fast-growing business looking to move from early-stage startup to a more established market presence.',
-    result: 'Created a stronger market identity and more confident digital presence.',
+      'A brand and website concept for a modern wellbeing company moving from an early-stage idea to a more established digital presence.',
+    result: 'A clear identity system and launch-ready website direction.',
     image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=900&fit=crop',
   },
   {
-    title: 'AI workflow product',
-    category: 'Product experience',
+    title: 'Relay',
+    category: 'Product concept',
     summary:
-      'A concept and interface system for an AI-focused product helping businesses automate repetitive tasks and simplify operations.',
-    result: 'Turned a complex idea into a clear, usable and scalable product story.',
+      'An AI workflow concept that helps service teams automate repetitive tasks, route requests and keep daily operations moving.',
+    result: 'A focused product story and interface system ready for prototyping.',
     image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=900&fit=crop',
   },
 ]
@@ -151,7 +151,7 @@ const testimonials = [
     quote:
       'Genk Studios completely transformed how our product looks and feels. The process was thoughtful, sharp and genuinely collaborative from start to finish.',
     name: 'Kini Smith',
-    role: 'Founder, Company',
+    role: 'Founder, MediPlus',
   },
   {
     quote:

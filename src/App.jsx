@@ -608,7 +608,6 @@ function App() {
             <div className="footer-column">
               <h2>Connect</h2>
               <a href="mailto:genkstudios05@gmail.com">Email us</a>
-              <a href="https://github.com/iveensmith" target="_blank" rel="noreferrer">GitHub</a>
               <a href="#contact">Start a project</a>
             </div>
           </div>

@@ -58,18 +58,12 @@ const services = [
   },
   {
     number: '05',
-    title: 'E-commerce',
-    description:
-      'High-converting online stores and product experiences that feel premium and help customers buy with confidence.',
-  },
-  {
-    number: '06',
     title: 'AI & Automation',
     description:
       'AI-powered tools, workflows and digital products that reduce repetitive work and unlock faster execution.',
   },
   {
-    number: '07',
+    number: '06',
     title: 'Voice Agents',
     description:
       'Conversational voice agents that answer calls, qualify leads and give customers useful support around the clock.',
@@ -110,17 +104,14 @@ const workItems = [
   {
     label: 'Strategy',
     text: 'Naming, vision and opportunity-shaping for ambitious brands.',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop',
   },
   {
     label: 'Design',
     text: 'Identity systems and digital expressions built to stand out.',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
   },
   {
     label: 'Build',
     text: 'Responsive, conversion-ready products crafted for real business goals.',
-    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop',
   },
 ]
 
@@ -131,7 +122,6 @@ const caseStudies = [
     summary:
       'A digital platform experience designed to simplify patient access, improve trust and support a more premium healthcare journey.',
     result: 'Improved digital clarity and engagement across the customer journey.',
-    image: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=900&fit=crop',
   },
   {
     title: 'Asterra',
@@ -139,7 +129,6 @@ const caseStudies = [
     summary:
       'A brand and website concept for a modern wellbeing company moving from an early-stage idea to a more established digital presence.',
     result: 'A clear identity system and launch-ready website direction.',
-    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&h=900&fit=crop',
   },
   {
     title: 'Relay',
@@ -147,7 +136,6 @@ const caseStudies = [
     summary:
       'An AI workflow concept that helps service teams automate repetitive tasks, route requests and keep daily operations moving.',
     result: 'A focused product story and interface system ready for prototyping.',
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&h=900&fit=crop',
   },
 ]
 
@@ -370,7 +358,6 @@ function App() {
                   <article
                     key={item.label}
                     className={`work-card reveal-up reveal-delay-${index + 1}`}
-                    style={{ backgroundImage: `url('${item.image}')` }}
                   >
                     <span className="work-index">0{index + 1}</span>
                     <div className="work-card-body">
@@ -393,7 +380,7 @@ function App() {
               <div className="case-study-grid">
                 {caseStudies.map((study, index) => (
                   <article key={study.title} className={`case-study-card reveal-up reveal-delay-${index + 1}`}>
-                    <div className="case-study-image" style={{ backgroundImage: `url('${study.image}')` }} />
+                    <div className="case-study-image" aria-hidden="true" />
                     <div className="case-study-copy">
                       <span>{study.category}</span>
                       <h3>{study.title}</h3>

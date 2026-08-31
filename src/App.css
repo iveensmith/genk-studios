@@ -18,6 +18,7 @@
   --display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
   --mono: 'Space Mono', ui-monospace, 'SFMono-Regular', monospace;
   --container: 1240px;
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 * { box-sizing: border-box; }
@@ -438,14 +439,48 @@ h1, h2, h3 {
   padding: 26px 22px;
   border: 1px solid var(--line);
   border-radius: 22px;
-  background-size: cover;
-  background-position: center;
-  background-color: rgba(0, 0, 0, 0.78);
-  background-blend-mode: multiply;
+  background: linear-gradient(158deg, #17140e 0%, #0d0d0e 62%);
   box-shadow: var(--shadow-card);
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
   position: relative;
   overflow: hidden;
+}
+
+.work-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(130% 90% at 12% 8%, rgba(201, 162, 95, 0.28), transparent 55%),
+    radial-gradient(100% 80% at 95% 108%, rgba(230, 207, 156, 0.1), transparent 60%),
+    repeating-radial-gradient(circle at 86% 16%, rgba(201, 162, 95, 0.1) 0 1px, transparent 1px 56px);
+}
+
+.work-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--noise);
+  background-size: 140px 140px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.work-grid .work-card:nth-child(2)::before {
+  background:
+    radial-gradient(120% 90% at 92% 8%, rgba(201, 162, 95, 0.24), transparent 55%),
+    radial-gradient(110% 90% at 4% 100%, rgba(255, 255, 255, 0.05), transparent 60%),
+    repeating-radial-gradient(circle at 10% 88%, rgba(201, 162, 95, 0.09) 0 1px, transparent 1px 54px);
+}
+
+.work-grid .work-card:nth-child(3)::before {
+  background:
+    radial-gradient(90% 70% at 50% -5%, rgba(201, 162, 95, 0.22), transparent 60%),
+    radial-gradient(120% 100% at 50% 120%, rgba(230, 207, 156, 0.08), transparent 55%),
+    repeating-radial-gradient(circle at 102% 50%, rgba(201, 162, 95, 0.08) 0 1px, transparent 1px 62px);
 }
 
 .work-card:hover,
@@ -515,15 +550,47 @@ h1, h2, h3 {
 }
 
 .case-study-image {
-  min-height: 240px;
-  background-size: cover;
-  background-position: center;
+  position: relative;
+  min-height: 210px;
+  overflow: hidden;
   border-bottom: 1px solid var(--line);
+  background: linear-gradient(150deg, #181410 0%, #0e0e0f 66%);
+}
+
+.case-study-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 18% 12%, rgba(201, 162, 95, 0.3), transparent 55%),
+    repeating-radial-gradient(circle at 82% 84%, rgba(201, 162, 95, 0.1) 0 1px, transparent 1px 50px);
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.case-study-card:hover .case-study-image {
-  transform: scale(1.05);
+.case-study-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--noise);
+  background-size: 140px 140px;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+}
+
+.case-study-grid .case-study-card:nth-child(2) .case-study-image::before {
+  background:
+    radial-gradient(120% 90% at 85% 14%, rgba(201, 162, 95, 0.26), transparent 55%),
+    repeating-radial-gradient(circle at 8% 88%, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 48px);
+}
+
+.case-study-grid .case-study-card:nth-child(3) .case-study-image::before {
+  background:
+    radial-gradient(90% 80% at 50% -8%, rgba(201, 162, 95, 0.24), transparent 60%),
+    repeating-radial-gradient(circle at 96% 50%, rgba(201, 162, 95, 0.09) 0 1px, transparent 1px 56px);
+}
+
+.case-study-card:hover .case-study-image::before {
+  transform: scale(1.08);
 }
 
 .case-study-copy {
@@ -1165,6 +1232,7 @@ h1, h2, h3 {
 
   .hero-title-inner { transform: none; }
   .hero-tagline::before { transform: scaleX(1); }
+  .case-study-image::before { transition: none; }
 }
 
 @media (max-width: 720px) {

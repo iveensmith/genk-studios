@@ -761,11 +761,13 @@ h1, h2, h3 {
   background: var(--card);
 }
 
-.case-study-image::before {
-  content: '';
+.case-study-image img {
   position: absolute;
   inset: 0;
-  background: var(--cs-img) top center / cover no-repeat;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -784,7 +786,7 @@ h1, h2, h3 {
     rgba(60, 47, 24, 0.05);
 }
 
-.case-study-card:hover .case-study-image::before {
+.case-study-card:hover .case-study-image img {
   transform: scale(1.03);
 }
 
@@ -1418,7 +1420,7 @@ h1, h2, h3 {
 
   .hero-title-inner { transform: none; }
   .hero-tagline::before { transform: scaleX(1); }
-  .case-study-image::before { transition: none; }
+  .case-study-image img { transition: none; }
   .hero-shot { animation: none; opacity: 1; }
   .hero-enter { animation: none; opacity: 1; transform: none; }
 }

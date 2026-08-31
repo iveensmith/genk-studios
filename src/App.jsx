@@ -525,11 +525,9 @@ function App() {
                     className={`case-study-card reveal-up reveal-delay-${index + 1}`}
                     aria-label={`${study.title} — open the live site`}
                   >
-                    <div
-                      className="case-study-image"
-                      style={{ '--cs-img': `url(${study.image})` }}
-                      aria-hidden="true"
-                    />
+                    <div className="case-study-image">
+                      <img src={study.image} alt={`${study.title} website`} loading="lazy" />
+                    </div>
                     <div className="case-study-copy">
                       <span className="case-study-meta">
                         {study.category}

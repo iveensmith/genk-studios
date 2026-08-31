@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import LegalPage from './LegalPage.jsx'
 
@@ -8,64 +8,55 @@ const prefersReducedMotion = () =>
 
 function CountUp({ value, duration = 1400 }) {
   const raw = String(value)
-  // Count up a leading integer/decimal with a trailing unit (12+, 98%, 4).
-  // Skip values that aren't a simple count, e.g. "24/7".
-  const parsed = raw.match(/^(\d+(?:\.\d+)?)([^/]*)$/s)
-  const match = parsed && !parsed[2].includes('/') ? parsed : null
-  const target = match ? parseFloat(match[1]) : 0
-  const suffix = match ? match[2] : raw
-  const decimals = match && match[1].includes('.') ? match[1].split('.')[1].length : 0
 
-  const ref = useRef(null)
-  const [display, setDisplay] = useState(match ? 0 : target)
+  // Parse once: a leading number + trailing unit (12+, 98%, 4).
+  // Anything else (e.g. "24/7") renders as-is.
+  const { isCount, target, suffix, decimals } = useMemo(() => {
+    const m = raw.match(/^(\d+(?:\.\d+)?)([^/]*)$/s)
+    if (!m) return { isCount: false, target: 0, suffix: raw, decimals: 0 }
+    return {
+      isCount: true,
+      target: parseFloat(m[1]),
+      suffix: m[2],
+      decimals: m[1].includes('.') ? m[1].split('.')[1].length : 0,
+    }
+  }, [raw])
+
+  const [display, setDisplay] = useState(isCount ? 0 : target)
 
   useEffect(() => {
-    if (!match) return
-    const node = ref.current
-    if (!node) return
+    if (!isCount) return
 
     if (prefersReducedMotion()) {
       setDisplay(target)
       return
     }
 
-    let frame
-    let start
+    let frame = 0
+    let startTime = 0
 
-    const run = () => {
-      const step = (now) => {
-        if (start === undefined) start = now
-        const progress = Math.min((now - start) / duration, 1)
-        const eased = 1 - Math.pow(1 - progress, 3)
-        setDisplay(target * eased)
-        if (progress < 1) frame = requestAnimationFrame(step)
-      }
-      frame = requestAnimationFrame(step)
+    const step = (now) => {
+      // Seed the clock on the first real frame. If the tab was
+      // backgrounded, rAF is paused and simply resumes here.
+      if (!startTime) startTime = now
+      const progress = Math.min((now - startTime) / duration, 1)
+      setDisplay(target * (1 - Math.pow(1 - progress, 3)))
+      if (progress < 1) frame = requestAnimationFrame(step)
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            run()
-            observer.disconnect()
-          }
-        })
-      },
-      { threshold: 0.6 }
-    )
-
-    observer.observe(node)
+    const kickoff = setTimeout(() => {
+      frame = requestAnimationFrame(step)
+    }, 150)
 
     return () => {
-      observer.disconnect()
+      clearTimeout(kickoff)
       if (frame) cancelAnimationFrame(frame)
     }
-  }, [match, target, duration])
+  }, [isCount, target, duration])
 
   return (
-    <span ref={ref}>
-      {match ? display.toFixed(decimals) : ''}
+    <span>
+      {isCount ? display.toFixed(decimals) : ''}
       {suffix}
     </span>
   )

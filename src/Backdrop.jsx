@@ -1,20 +1,23 @@
 // Ambient calligraphic flourishes behind the page.
+// Each curl is its own edge-anchored SVG so the set adapts to any
+// viewport (a single slice'd SVG only showed its centre strip on mobile).
 // Colour comes from --flourish (gold in dark, warm near-black in light).
+const curls = [
+  { cls: 'bf-1', box: '0 0 200 220', d: 'M40 12c80 10 120 82 70 142-40 50-118 32-106-48 8-56 78-70 104-26 20 34-6 78-40 66' },
+  { cls: 'bf-2', box: '0 0 240 180', d: 'M12 44C92-8 154 58 122 110c-24 40-100 30-90-40 6-40 62-36 74 6' },
+  { cls: 'bf-3', box: '0 0 200 240', d: 'M160 20C60 8 20 92 62 152c34 48 112 40 110-40-2-52-52-74-78-24' },
+  { cls: 'bf-4', box: '0 0 240 160', d: 'M10 122C82 40 132 132 202 90c40-24 30-72-10-62-30 8-22 62-70 74' },
+  { cls: 'bf-5', box: '0 0 170 190', d: 'M32 20c82 12 112 84 62 148-30 38-84 18-74-40 6-32 60-30 74 6' },
+]
+
 export function Backdrop() {
   return (
-    <svg
-      className="backdrop-flourish"
-      viewBox="0 0 1440 900"
-      preserveAspectRatio="xMidYMid slice"
-      aria-hidden="true"
-      focusable="false"
-    >
-      <path d="M1216 -46c150 8 214 150 106 226-104 73-258 30-244-84 11-84 108-114 150-42 32 55-6 116-58 96-34-13-34-56-6-72" />
-      <path d="M-64 432c142-72 234 40 194 132-36 82-146 66-126-38 14-70 88-72 104-16" />
-      <path d="M-44 772c152-72 224 72 366 20 132-49 122-206-20-176-88 18-76 132 14 110 58-15 64-80 28-106" />
-      <path d="M1512 726c-142-30-204 82-326 50-98-26-86-144 20-128 70 10 74 88 16 96" />
-      <path d="M-32 96c102-62 224 4 202 106-14 70-112 74-112-10" />
-      <path d="M1372 900c40-70-8-140-96-150" />
-    </svg>
+    <div className="backdrop-flourish" aria-hidden="true">
+      {curls.map((c) => (
+        <svg key={c.cls} className={`bf ${c.cls}`} viewBox={c.box} focusable="false">
+          <path d={c.d} />
+        </svg>
+      ))}
+    </div>
   )
 }

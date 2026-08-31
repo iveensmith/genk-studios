@@ -237,6 +237,7 @@ const goalOptions = [
 function App() {
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
+  const messageRef = useRef(null)
   const heroRef = useRef(null)
   const pointerRef = useRef({ x: 0, y: 0 })
   const pointerFrame = useRef(0)
@@ -284,6 +285,15 @@ function App() {
 
   const toggleMenu = () => setMenuOpen((prev) => !prev)
   const closeMenu = () => setMenuOpen(false)
+
+  const startFromQuiz = () => {
+    const field = messageRef.current
+    if (field) {
+      field.value = `I'd like a ${selectedBuild}. The main goal is to ${selectedGoal.toLowerCase()}.`
+    }
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    window.setTimeout(() => field?.focus(), 500)
+  }
 
   // Parallax the hero orbs via a CSS var written straight to the DOM,
   // rAF-throttled — no React re-render per mousemove.
@@ -658,16 +668,11 @@ function App() {
 
               <div className="quiz-summary">
                 <p>
-                  {selectedBuild} for {selectedGoal.toLowerCase()}.
+                  {selectedBuild} — {selectedGoal.toLowerCase()}.
                 </p>
-                <a
-                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-                    `Project inquiry: ${selectedBuild} to ${selectedGoal.toLowerCase()}`
-                  )}`}
-                  className="btn btn-primary"
-                >
+                <button type="button" onClick={startFromQuiz} className="btn btn-primary">
                   Let&apos;s build it
-                </a>
+                </button>
               </div>
             </div>
           </section>
@@ -698,7 +703,7 @@ function App() {
                 </label>
                 <label className="form-message">
                   <span>Tell us about the project</span>
-                  <textarea name="message" rows="4" required />
+                  <textarea name="message" ref={messageRef} rows="4" required />
                 </label>
                 <button type="submit" className="btn btn-primary" disabled={formState === 'submitting'}>
                   {formState === 'submitting' ? 'Sending…' : 'Start a project'}

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://genkstudios.netlify.app/sitemap.xml

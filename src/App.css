@@ -506,14 +506,14 @@ h1, h2, h3 {
 /* Hero showcase — a fanned stack of real, shipped work */
 .hero-showcase {
   position: relative;
-  min-height: 500px;
+  min-height: 384px;
   align-self: center;
 }
 
 .hero-shot {
   --rot: 0deg;
   position: absolute;
-  width: 56%;
+  width: 48%;
   aspect-ratio: 16 / 10;
   border-radius: 14px;
   border: 1px solid var(--line-strong);
@@ -554,10 +554,10 @@ h1, h2, h3 {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-.hero-shot-1 { --rot: -2.5deg; top: 0; right: 0; z-index: 2; animation-delay: 0.15s; }
-.hero-shot-2 { --rot: 2deg; top: 104px; right: 32%; z-index: 4; animation-delay: 0.28s; }
-.hero-shot-3 { --rot: 2.4deg; top: 214px; right: 3%; z-index: 3; animation-delay: 0.41s; }
-.hero-shot-4 { --rot: -2deg; top: 300px; right: 30%; z-index: 1; animation-delay: 0.54s; }
+.hero-shot-1 { --rot: -2deg; top: 8px; right: 46%; z-index: 2; animation-delay: 0.15s; }
+.hero-shot-2 { --rot: 1.6deg; top: 0; right: 0; z-index: 3; animation-delay: 0.26s; }
+.hero-shot-3 { --rot: 1.8deg; top: 178px; right: 50%; z-index: 1; animation-delay: 0.37s; }
+.hero-shot-4 { --rot: -1.6deg; top: 194px; right: 2%; z-index: 4; animation-delay: 0.48s; }
 
 .hero-shot:hover,
 .hero-shot:focus-visible {

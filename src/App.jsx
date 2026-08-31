@@ -1,6 +1,75 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import LegalPage from './LegalPage.jsx'
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+function CountUp({ value, duration = 1400 }) {
+  const raw = String(value)
+  // Count up a leading integer/decimal with a trailing unit (12+, 98%, 4).
+  // Skip values that aren't a simple count, e.g. "24/7".
+  const parsed = raw.match(/^(\d+(?:\.\d+)?)([^/]*)$/s)
+  const match = parsed && !parsed[2].includes('/') ? parsed : null
+  const target = match ? parseFloat(match[1]) : 0
+  const suffix = match ? match[2] : raw
+  const decimals = match && match[1].includes('.') ? match[1].split('.')[1].length : 0
+
+  const ref = useRef(null)
+  const [display, setDisplay] = useState(match ? 0 : target)
+
+  useEffect(() => {
+    if (!match) return
+    const node = ref.current
+    if (!node) return
+
+    if (prefersReducedMotion()) {
+      setDisplay(target)
+      return
+    }
+
+    let frame
+    let start
+
+    const run = () => {
+      const step = (now) => {
+        if (start === undefined) start = now
+        const progress = Math.min((now - start) / duration, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setDisplay(target * eased)
+        if (progress < 1) frame = requestAnimationFrame(step)
+      }
+      frame = requestAnimationFrame(step)
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            run()
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.6 }
+    )
+
+    observer.observe(node)
+
+    return () => {
+      observer.disconnect()
+      if (frame) cancelAnimationFrame(frame)
+    }
+  }, [match, target, duration])
+
+  return (
+    <span ref={ref}>
+      {match ? display.toFixed(decimals) : ''}
+      {suffix}
+    </span>
+  )
+}
 
 function Brand() {
   return (
@@ -339,7 +408,7 @@ function App() {
             <div className="container hero-strip">
               {stats.map((stat, index) => (
                 <div key={stat.label} className={`metric-pill reveal-up reveal-delay-${index + 4}`}>
-                  <span>{stat.value}</span>
+                  <CountUp value={stat.value} />
                   <small>{stat.label}</small>
                 </div>
               ))}

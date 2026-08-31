@@ -593,6 +593,39 @@ h1, h2, h3 {
   text-transform: uppercase;
 }
 
+.case-study-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.case-study-visit {
+  color: var(--primary);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.case-study-card:hover .case-study-visit,
+.case-study-card:focus-visible .case-study-visit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (hover: none) {
+  .case-study-visit {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.case-study-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
 .case-study-copy h3 {
   margin: 0;
   font-size: clamp(1.6rem, 2.3vw, 2.3rem);

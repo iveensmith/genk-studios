@@ -8,6 +8,10 @@ import { join, dirname } from 'node:path'
 const DIST = 'dist'
 const SITE = 'https://genkstudios.netlify.app'
 
+// Per-project OG cards live in public/og-<slug>.png (1200×630). To regenerate,
+// copy scripts/og-template.html into public/, load it with ?title=&cat=&desc=&slug=
+// params, screenshot the 1200×630 frame, then move the template back out.
+// Routes without an `image` keep the site default card in the base head (/og.png).
 const routes = {
   '/terms': {
     title: 'Terms of Use — Genk Studios',
@@ -21,21 +25,29 @@ const routes = {
     title: 'Roleweave — Genk Studios',
     description:
       'Case study: an AI career tool that rewrites a CV to match a job posting and generates the whole application — cover letter, recruiter note, interview brief — from the same evidence.',
+    image: '/og-roleweave.png',
+    imageAlt: 'Roleweave — a Genk Studios case study',
   },
   '/work/uniquepredict': {
     title: 'UniquePredict — Genk Studios',
     description:
       'Case study: a football prediction platform where every tip across 30 leagues comes from a Poisson and Dixon-Coles model, published daily with a public, unedited results archive.',
+    image: '/og-uniquepredict.png',
+    imageAlt: 'UniquePredict — a Genk Studios case study',
   },
   '/work/voiceiq': {
     title: 'VoiceIQ — Genk Studios',
     description:
       'Case study: a QA and certification platform that tests AI voice agents with real phone calls and verifies the actions they claim to take.',
+    image: '/og-voiceiq.png',
+    imageAlt: 'VoiceIQ — a Genk Studios case study',
   },
   '/work/workflowauth': {
     title: 'WorkflowAuth — Genk Studios',
     description:
       'Case study: a done-for-you AI front desk that answers every call for local service businesses, qualifies the lead and books the job.',
+    image: '/og-workflowauth.png',
+    imageAlt: 'WorkflowAuth — a Genk Studios case study',
   },
 }
 
@@ -51,7 +63,7 @@ const setTag = (html, pattern, replacement) => {
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
 
-for (const [route, { title, description }] of Object.entries(routes)) {
+for (const [route, { title, description, image, imageAlt }] of Object.entries(routes)) {
   const url = SITE + route
   const t = esc(title)
   const d = esc(description)
@@ -65,6 +77,14 @@ for (const [route, { title, description }] of Object.entries(routes)) {
   html = setTag(html, /<meta\s+property="og:url"\s+content="[\s\S]*?"\s*\/>/, `<meta property="og:url" content="${url}" />`)
   html = setTag(html, /<meta\s+name="twitter:title"\s+content="[\s\S]*?"\s*\/>/, `<meta name="twitter:title" content="${t}" />`)
   html = setTag(html, /<meta\s+name="twitter:description"\s+content="[\s\S]*?"\s*\/>/, `<meta name="twitter:description" content="${d}" />`)
+
+  if (image) {
+    const img = SITE + image
+    const alt = esc(imageAlt || title)
+    html = setTag(html, /<meta\s+property="og:image"\s+content="[\s\S]*?"\s*\/>/, `<meta property="og:image" content="${img}" />`)
+    html = setTag(html, /<meta\s+property="og:image:alt"\s+content="[\s\S]*?"\s*\/>/, `<meta property="og:image:alt" content="${alt}" />`)
+    html = setTag(html, /<meta\s+name="twitter:image"\s+content="[\s\S]*?"\s*\/>/, `<meta name="twitter:image" content="${img}" />`)
+  }
 
   const out = join(DIST, route, 'index.html')
   await mkdir(dirname(out), { recursive: true })

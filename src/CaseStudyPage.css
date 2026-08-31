@@ -221,8 +221,61 @@
 .cs-footer a:hover,
 .cs-footer a:focus-visible { color: var(--white); }
 
+/* 404 */
+.nf-body {
+  width: min(880px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 122px 0 104px;
+}
+
+.nf-code {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.nf-title {
+  margin: 0 0 20px;
+  max-width: 15ch;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+}
+
+.nf-text {
+  margin: 0 0 40px;
+  max-width: 44ch;
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.nf-links {
+  display: grid;
+  gap: 14px;
+}
+
+.nf-links a {
+  width: fit-content;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.nf-links a:hover,
+.nf-links a:focus-visible { color: var(--primary); }
+
 @media (max-width: 620px) {
   .cs-body { padding: 60px 0 32px; }
   .cs-section { margin-top: 48px; }
   .cs-footer { min-height: 70px; }
+  .nf-body { padding: 78px 0 60px; }
 }

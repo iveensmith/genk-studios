@@ -4,6 +4,7 @@ import LegalPage from './LegalPage.jsx'
 import { useTheme, ThemeToggle } from './theme.jsx'
 import { Backdrop } from './Backdrop.jsx'
 import CaseStudyPage from './CaseStudyPage.jsx'
+import NotFound from './NotFound.jsx'
 import caseRoleweave from './assets/case-roleweave.jpg'
 import caseUniquePredict from './assets/case-uniquepredict.jpg'
 import caseVoiceIQ from './assets/case-voiceiq.jpg'
@@ -430,7 +431,8 @@ function App() {
     }
   }
 
-  const path = window.location.pathname
+  const rawPath = window.location.pathname
+  const path = rawPath.length > 1 ? rawPath.replace(/\/+$/, '') : rawPath
 
   if (path === '/terms') {
     return <LegalPage type="terms" />
@@ -441,11 +443,16 @@ function App() {
   }
 
   if (path.startsWith('/work/')) {
-    const slug = path.slice('/work/'.length).replace(/\/$/, '')
+    const slug = path.slice('/work/'.length)
     const study = caseStudies.find((s) => s.slug === slug)
     if (study) {
       return <CaseStudyPage study={study} all={caseStudies} />
     }
+    return <NotFound />
+  }
+
+  if (path !== '/') {
+    return <NotFound />
   }
 
   return (

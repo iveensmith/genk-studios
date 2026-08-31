@@ -1,0 +1,93 @@
+<!doctype html>
+<!--
+  Generator for the per-project Open Graph cards (public/og-<slug>.png, 1200×630).
+  Not shipped — kept in scripts/ for regeneration. To use: copy into public/,
+  open /og-template.html?title=Roleweave&cat=AI+career+tool&desc=...&slug=roleweave,
+  screenshot the 1200×630 frame, save as public/og-<slug>.png, then remove from public/.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Inter:wght@400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    position: relative;
+    background:
+      radial-gradient(120% 90% at 12% 8%, rgba(201,162,95,0.22), transparent 55%),
+      radial-gradient(90% 80% at 96% 108%, rgba(230,207,156,0.08), transparent 60%),
+      #0b0b0c;
+    color: #f3efe7;
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .flourish { position: absolute; top: -96px; right: -70px; width: 380px; }
+  .flourish path { fill: none; stroke: rgba(201,162,95,0.13); stroke-width: 2; stroke-linecap: round; }
+  .frame { position: absolute; inset: 0; padding: 70px 80px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+  .brand { position: absolute; top: 64px; left: 80px; display: flex; align-items: center; gap: 14px; }
+  .mark { width: 40px; height: 40px; color: #c9a25f; }
+  .mark svg { display: block; width: 100%; height: 100%; }
+  .brand span { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
+  .brand .dim { color: #a8a29a; }
+  .eyebrow {
+    display: flex; align-items: center; gap: 16px;
+    font-family: 'Space Mono', monospace;
+    font-size: 16px; letter-spacing: 0.16em; text-transform: uppercase; color: #a8a29a;
+    margin-bottom: 22px;
+  }
+  .eyebrow::before { content: ''; width: 54px; height: 1px; background: #c9a25f; }
+  h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-weight: 700; font-size: 82px; line-height: 1.02;
+    letter-spacing: -0.038em; margin-bottom: 22px;
+  }
+  .desc { max-width: 34ch; color: #b8b2a8; font-size: 24px; line-height: 1.5; }
+  .foot {
+    position: absolute; left: 80px; right: 80px; bottom: 62px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 24px; border-top: 1px solid rgba(240,236,228,0.12);
+  }
+  .foot::before { content: ''; position: absolute; top: -1px; left: 0; width: 72px; height: 1px; background: #c9a25f; }
+  .foot .tag, .foot .url {
+    font-family: 'Space Mono', monospace; font-size: 16px; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .foot .tag { color: #6f6a62; }
+  .foot .url { color: #c9a25f; letter-spacing: 0.04em; text-transform: none; }
+</style>
+</head>
+<body>
+  <svg class="flourish" viewBox="0 0 260 300" fill="none">
+    <path d="M40 12c80 10 120 82 70 142-40 50-118 32-106-48 8-56 78-70 104-26 20 34-6 78-40 66" />
+    <path d="M170 60c-100-12-140 72-98 132 34 48 112 40 110-40-2-52-52-74-78-24" />
+  </svg>
+  <div class="frame">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 28 28" fill="none"><path d="M19.9 9.1a6.6 6.6 0 1 0 1.4 6.1h-5" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </span>
+      <span>Genk <span class="dim">Studios</span></span>
+    </div>
+    <div>
+      <div class="eyebrow" id="eyebrow">Case study</div>
+      <h1 id="title">Project</h1>
+      <p class="desc" id="desc"></p>
+    </div>
+    <div class="foot">
+      <div class="tag" id="tag">Case study</div>
+      <div class="url" id="url">genkstudios.netlify.app</div>
+    </div>
+  </div>
+  <script>
+    const p = new URLSearchParams(location.search)
+    const cat = p.get('cat') || ''
+    document.getElementById('eyebrow').textContent = cat ? 'Case study · ' + cat : 'Case study'
+    document.getElementById('title').textContent = p.get('title') || 'Project'
+    document.getElementById('desc').textContent = p.get('desc') || ''
+    document.getElementById('tag').textContent = cat || 'Case study'
+    document.getElementById('url').textContent = 'genkstudios.netlify.app/work/' + (p.get('slug') || '')
+  </script>
+</body>
+</html>

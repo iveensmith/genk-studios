@@ -1381,32 +1381,8 @@ h1, h2, h3 {
     gap: 0;
   }
 
-  /* On small screens the fan becomes a plain 2x2 of thumbnails. */
   .hero-showcase {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    min-height: 0;
-    margin-top: 36px;
-  }
-
-  .hero-shot {
-    --rot: 0deg;
-    position: relative;
-    inset: auto;
-    width: auto;
-    transform: none;
-  }
-
-  .hero-shot:hover,
-  .hero-shot:focus-visible {
-    transform: translateY(-4px);
-  }
-
-  .hero-shot::after,
-  .hero-shot-label {
-    opacity: 1;
-    transform: none;
+    display: none;
   }
 
   .work-grid,

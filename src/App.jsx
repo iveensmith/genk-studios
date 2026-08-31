@@ -349,8 +349,8 @@ function App() {
           <section className="showcase section" id="selected-work">
             <div className="container">
               <div className="section-header split-header">
-                <div className="eyebrow">Selected work</div>
-                <h2>Bold ideas, clear strategy and digital experiences that feel premium.</h2>
+                <div className="eyebrow">Our approach</div>
+                <h2>Strategy, design and build, handled as one continuous process.</h2>
               </div>
 
               <div className="work-grid">

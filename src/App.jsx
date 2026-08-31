@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import LegalPage from './LegalPage.jsx'
 import { useTheme, ThemeToggle } from './theme.jsx'
@@ -7,6 +7,9 @@ import caseRoleweave from './assets/case-roleweave.jpg'
 import caseUniquePredict from './assets/case-uniquepredict.jpg'
 import caseVoiceIQ from './assets/case-voiceiq.jpg'
 import caseWorkflowAuth from './assets/case-workflowauth.jpg'
+
+const CONTACT_EMAIL = 'genkstudios05@gmail.com'
+const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
@@ -276,10 +279,12 @@ const goalOptions = [
 function App() {
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
-  const [pointer, setPointer] = useState({ x: 0, y: 0 })
+  const heroRef = useRef(null)
+  const pointerRef = useRef({ x: 0, y: 0 })
+  const pointerFrame = useRef(0)
   const [selectedBuild, setSelectedBuild] = useState('Website')
   const [selectedGoal, setSelectedGoal] = useState('Launch something new')
-  const [formSubmitted, setFormSubmitted] = useState(false)
+  const [formState, setFormState] = useState('idle') // idle | submitting | success | error
 
   useEffect(() => {
     const revealItems = document.querySelectorAll('.reveal-up')
@@ -305,29 +310,87 @@ function App() {
     return () => observer.disconnect()
   }, [])
 
+  // Deep links (/#services, /#contact …) — jump to the target once it exists.
+  useEffect(() => {
+    const id = window.location.hash.slice(1)
+    if (!id) return
+    const t = setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'instant', block: 'start' })
+    }, 120)
+    return () => clearTimeout(t)
+  }, [])
+
   const toggleMenu = () => setMenuOpen((prev) => !prev)
   const closeMenu = () => setMenuOpen(false)
 
+  // Parallax the hero orbs via a CSS var written straight to the DOM,
+  // rAF-throttled — no React re-render per mousemove.
   const handleHeroPointerMove = (event) => {
+    if (prefersReducedMotion()) return
     const rect = event.currentTarget.getBoundingClientRect()
-    const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2
-    const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2
-    setPointer({ x, y })
+    pointerRef.current.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2
+    pointerRef.current.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2
+    if (pointerFrame.current) return
+    pointerFrame.current = requestAnimationFrame(() => {
+      pointerFrame.current = 0
+      const el = heroRef.current
+      if (!el) return
+      el.style.setProperty('--pointer-x', `${pointerRef.current.x * 16}px`)
+      el.style.setProperty('--pointer-y', `${pointerRef.current.y * 14}px`)
+    })
   }
 
-  const handleProjectInquiry = (event) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget)
-    const name = formData.get('name')
-    const email = formData.get('email')
-    const message = formData.get('message')
-    const subject = encodeURIComponent(`Project inquiry from ${name}`)
+  const openMailClient = (name, email, message) => {
+    const subject = encodeURIComponent(`Project inquiry from ${name || 'the website'}`)
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\nProject type: ${selectedBuild}\nGoal: ${selectedGoal}\n\nProject details:\n${message}`
     )
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`
+  }
 
-    window.location.href = `mailto:genkstudios05@gmail.com?subject=${subject}&body=${body}`
-    setFormSubmitted(true)
+  const handleProjectInquiry = async (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    const data = new FormData(form)
+    if (data.get('botcheck')) return // honeypot tripped — ignore silently
+
+    const name = data.get('name')
+    const email = data.get('email')
+    const message = data.get('message')
+
+    // No form service configured — fall back to the visitor's mail client.
+    if (!WEB3FORMS_KEY) {
+      openMailClient(name, email, message)
+      setFormState('success')
+      return
+    }
+
+    setFormState('submitting')
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `Project inquiry from ${name}`,
+          from_name: 'Genk Studios website',
+          name,
+          email,
+          'Project type': selectedBuild,
+          Goal: selectedGoal,
+          message,
+        }),
+      })
+      const json = await res.json()
+      if (json.success) {
+        setFormState('success')
+        form.reset()
+      } else {
+        setFormState('error')
+      }
+    } catch {
+      setFormState('error')
+    }
   }
 
   if (window.location.pathname === '/terms') {
@@ -379,14 +442,7 @@ function App() {
         </header>
 
         <main id="top">
-          <section
-            className="hero"
-            onMouseMove={handleHeroPointerMove}
-            style={{
-              '--pointer-x': `${pointer.x * 16}px`,
-              '--pointer-y': `${pointer.y * 14}px`,
-            }}
-          >
+          <section className="hero" ref={heroRef} onMouseMove={handleHeroPointerMove}>
             <div className="hero-orb orb-one" />
             <div className="hero-orb orb-two" />
             <div className="scroll-indicator">
@@ -395,8 +451,11 @@ function App() {
 
             <div className="container">
               <div className="hero-intro reveal-up">Digital product studio</div>
-              <h1 className="hero-title">
-                <span className="hero-title-inner">
+              <h1
+                className="hero-title"
+                aria-label="Build a digital presence that moves your business forward."
+              >
+                <span className="hero-title-inner" aria-hidden="true">
                   <span className="hero-title-line">Build a digital presence</span>
                   <span className="hero-title-line dim">that moves your business forward.</span>
                 </span>
@@ -641,7 +700,12 @@ function App() {
                 <p>
                   {selectedBuild} for {selectedGoal.toLowerCase()}.
                 </p>
-                <a href="mailto:genkstudios05@gmail.com?subject=Project%20Inquiry" className="btn btn-primary">
+                <a
+                  href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+                    `Project inquiry: ${selectedBuild} to ${selectedGoal.toLowerCase()}`
+                  )}`}
+                  className="btn btn-primary"
+                >
                   Let&apos;s build it
                 </a>
               </div>
@@ -656,6 +720,14 @@ function App() {
                 <p>Tell us where you are now, what you want to build and the outcome you are aiming for.</p>
               </div>
               <form className="project-form" onSubmit={handleProjectInquiry}>
+                <input
+                  type="text"
+                  name="botcheck"
+                  className="form-honeypot"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
                 <label>
                   <span>Name</span>
                   <input type="text" name="name" autoComplete="name" required />
@@ -668,10 +740,22 @@ function App() {
                   <span>Tell us about the project</span>
                   <textarea name="message" rows="4" required />
                 </label>
-                <button type="submit" className="btn btn-primary">
-                  Start a project
+                <button type="submit" className="btn btn-primary" disabled={formState === 'submitting'}>
+                  {formState === 'submitting' ? 'Sending…' : 'Start a project'}
                 </button>
-                {formSubmitted && <p className="form-status">Your email app is opening with the project brief attached.</p>}
+                {formState === 'success' && (
+                  <p className="form-status" role="status">
+                    {WEB3FORMS_KEY
+                      ? 'Thanks — your brief is on its way. We usually reply within a day.'
+                      : 'Your mail app is opening with the brief attached.'}
+                  </p>
+                )}
+                {formState === 'error' && (
+                  <p className="form-status form-status--error" role="alert">
+                    That didn&apos;t send. Email us directly at{' '}
+                    <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+                  </p>
+                )}
               </form>
             </div>
           </section>
@@ -682,11 +766,11 @@ function App() {
             <div className="footer-intro">
               <Brand />
               <p>Independent digital product studio for ambitious businesses.</p>
-              <a className="footer-email" href="mailto:genkstudios05@gmail.com">genkstudios05@gmail.com</a>
+              <a className="footer-email" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </div>
 
             <div className="footer-column">
-              <h2>Explore</h2>
+              <p className="footer-column-title">Explore</p>
               <a href="#work">Work</a>
               <a href="#services">Services</a>
               <a href="#process">Process</a>
@@ -695,7 +779,7 @@ function App() {
             </div>
 
             <div className="footer-column">
-              <h2>Capabilities</h2>
+              <p className="footer-column-title">Capabilities</p>
               <a href="#services">Websites</a>
               <a href="#services">Web Apps</a>
               <a href="#services">UI/UX Design</a>
@@ -704,8 +788,8 @@ function App() {
             </div>
 
             <div className="footer-column">
-              <h2>Connect</h2>
-              <a href="mailto:genkstudios05@gmail.com">Email us</a>
+              <p className="footer-column-title">Connect</p>
+              <a href={`mailto:${CONTACT_EMAIL}`}>Email us</a>
               <a href="#contact">Start a project</a>
             </div>
           </div>

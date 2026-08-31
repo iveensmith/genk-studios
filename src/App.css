@@ -533,7 +533,7 @@ h1, h2, h3 {
 /* Case studies */
 .case-study-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -551,19 +551,17 @@ h1, h2, h3 {
 
 .case-study-image {
   position: relative;
-  min-height: 210px;
+  min-height: 280px;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(150deg, #181410 0%, #0e0e0f 66%);
+  background: #0e0e0f;
 }
 
 .case-study-image::before {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(120% 90% at 18% 12%, rgba(201, 162, 95, 0.3), transparent 55%),
-    repeating-radial-gradient(circle at 82% 84%, rgba(201, 162, 95, 0.1) 0 1px, transparent 1px 50px);
+  background: var(--cs-img) top center / cover no-repeat;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -571,26 +569,14 @@ h1, h2, h3 {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: var(--noise);
-  background-size: 140px 140px;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-}
-
-.case-study-grid .case-study-card:nth-child(2) .case-study-image::before {
   background:
-    radial-gradient(120% 90% at 85% 14%, rgba(201, 162, 95, 0.26), transparent 55%),
-    repeating-radial-gradient(circle at 8% 88%, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 48px);
-}
-
-.case-study-grid .case-study-card:nth-child(3) .case-study-image::before {
-  background:
-    radial-gradient(90% 80% at 50% -8%, rgba(201, 162, 95, 0.24), transparent 60%),
-    repeating-radial-gradient(circle at 96% 50%, rgba(201, 162, 95, 0.09) 0 1px, transparent 1px 56px);
+    linear-gradient(180deg, rgba(11, 11, 12, 0) 52%, rgba(22, 22, 23, 0.92) 100%),
+    linear-gradient(180deg, rgba(11, 11, 12, 0.14), rgba(11, 11, 12, 0) 28%),
+    rgba(11, 11, 12, 0.22);
 }
 
 .case-study-card:hover .case-study-image::before {
-  transform: scale(1.08);
+  transform: scale(1.03);
 }
 
 .case-study-copy {

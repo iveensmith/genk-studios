@@ -5,6 +5,22 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://genkstudios.netlify.app/work/roleweave</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://genkstudios.netlify.app/work/uniquepredict</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://genkstudios.netlify.app/work/voiceiq</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://genkstudios.netlify.app/work/workflowauth</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://genkstudios.netlify.app/terms</loc>
     <priority>0.3</priority>
   </url>

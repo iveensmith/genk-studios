@@ -1,4 +1,5 @@
 import './LegalPage.css'
+import { useTheme, ThemeToggle } from './theme.jsx'
 
 const updatedDate = 'August 14, 2026'
 
@@ -79,6 +80,7 @@ function LegalPage({ type }) {
     ? 'The terms that govern your use of the Genk Studios website.'
     : 'How Genk Studios collects, uses and protects your information.'
   const sections = isTerms ? termsSections : privacySections
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <main className="legal-page">
@@ -99,7 +101,10 @@ function LegalPage({ type }) {
             Genk <span className="legal-brand-dim">Studios</span>
           </span>
         </a>
-        <a href="/" className="legal-home-link">Back to home</a>
+        <div className="legal-header-end">
+          <ThemeToggle theme={theme} onToggle={toggleTheme} className="theme-toggle legal-theme-toggle" />
+          <a href="/" className="legal-home-link">Back to home</a>
+        </div>
       </header>
 
       <article className="legal-content">

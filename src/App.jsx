@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import LegalPage from './LegalPage.jsx'
+import { useTheme, ThemeToggle } from './theme.jsx'
 import caseRoleweave from './assets/case-roleweave.jpg'
 import caseUniquePredict from './assets/case-uniquepredict.jpg'
 import caseVoiceIQ from './assets/case-voiceiq.jpg'
@@ -272,6 +273,7 @@ const goalOptions = [
 ]
 
 function App() {
+  const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const [pointer, setPointer] = useState({ x: 0, y: 0 })
   const [selectedBuild, setSelectedBuild] = useState('Website')
@@ -354,21 +356,23 @@ function App() {
               ))}
             </nav>
 
-            <a href="#contact" className="btn btn-primary nav-cta">
-              Start a project
-            </a>
-
-            <button
-              type="button"
-              className={`menu-toggle ${menuOpen ? 'open' : ''}`}
-              aria-label="Toggle menu"
-              aria-expanded={menuOpen}
-              onClick={toggleMenu}
-            >
-              <span />
-              <span />
-              <span />
-            </button>
+            <div className="nav-end">
+              <ThemeToggle theme={theme} onToggle={toggleTheme} />
+              <a href="#contact" className="btn btn-primary nav-cta">
+                Start a project
+              </a>
+              <button
+                type="button"
+                className={`menu-toggle ${menuOpen ? 'open' : ''}`}
+                aria-label="Toggle menu"
+                aria-expanded={menuOpen}
+                onClick={toggleMenu}
+              >
+                <span />
+                <span />
+                <span />
+              </button>
+            </div>
           </div>
         </header>
 

@@ -10,6 +10,26 @@
   --legal-mono: 'Space Mono', ui-monospace, monospace;
 }
 
+:root[data-theme='light'] {
+  --legal-bg: #efe8da;
+  --legal-surface: #e6ddc9;
+  --legal-text: #201c14;
+  --legal-muted: #635c4c;
+  --legal-faint: #837a63;
+  --legal-line: rgba(34, 30, 23, 0.13);
+  --legal-accent: #9a7422;
+}
+
+.legal-header-end {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.legal-theme-toggle {
+  color: var(--legal-text);
+}
+
 .legal-page {
   min-height: 100vh;
   background: var(--legal-bg);

@@ -2,6 +2,27 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import LegalPage from './LegalPage.jsx'
 
+function Brand() {
+  return (
+    <a href="#top" className="brand" aria-label="Genk Studios home">
+      <span className="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 28 28" fill="none">
+          <path
+            d="M19.9 9.1a6.6 6.6 0 1 0 1.4 6.1h-5"
+            stroke="currentColor"
+            strokeWidth="2.3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+      <span>
+        Genk <span className="brand-dim">Studios</span>
+      </span>
+    </a>
+  )
+}
+
 const navItems = [
   { label: 'Services', href: '#services', delay: 0 },
   { label: 'Work', href: '#work', delay: 60 },
@@ -224,12 +245,6 @@ function App() {
     setPointer({ x, y })
   }
 
-  const handleGlobalPointerMove = (event) => {
-    const cursor = document.querySelector('.custom-cursor')
-    if (!cursor) return
-    cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`
-  }
-
   const handleProjectInquiry = (event) => {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
@@ -254,15 +269,10 @@ function App() {
   }
 
   return (
-    <>
-      <div className="custom-cursor" aria-hidden="true" />
-      <div className="page-shell" onPointerMove={handleGlobalPointerMove}>
+    <div className="page-shell">
         <header className="site-header">
           <div className="container nav-wrap">
-            <a href="#top" className="brand" aria-label="Genk Studios home">
-              <img className="brand-mark" src="/gemini-svg.svg" alt="" />
-              <span>enk studios</span>
-            </a>
+            <Brand />
 
             <nav className={`main-nav ${menuOpen ? 'open' : ''}`} aria-label="Main navigation">
               {navItems.map((item) => (
@@ -312,8 +322,11 @@ function App() {
 
             <div className="container">
               <div className="hero-intro reveal-up">Digital product studio</div>
-              <h1 className="reveal-up reveal-delay-1">
-                Build a digital presence <span>that actually moves your business forward.</span>
+              <h1 className="hero-title">
+                <span className="hero-title-inner">
+                  <span className="hero-title-line">Build a digital presence</span>
+                  <span className="hero-title-line dim">that moves your business forward.</span>
+                </span>
               </h1>
 
               <div className="hero-meta reveal-up reveal-delay-2">
@@ -579,10 +592,7 @@ function App() {
         <footer className="site-footer">
           <div className="container footer-main">
             <div className="footer-intro">
-              <a href="#top" className="brand" aria-label="Genk Studios home">
-                <img className="brand-mark" src="/gemini-svg.svg" alt="" />
-                <span>enk studios</span>
-              </a>
+              <Brand />
               <p>Independent digital product studio for ambitious businesses.</p>
               <a className="footer-email" href="mailto:genkstudios05@gmail.com">genkstudios05@gmail.com</a>
             </div>
@@ -621,8 +631,7 @@ function App() {
             <a href="#top" className="back-to-top" aria-label="Back to top" title="Back to top">↑</a>
           </div>
         </footer>
-      </div>
-    </>
+    </div>
   )
 }
 

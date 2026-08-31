@@ -80,19 +80,24 @@ function LegalPage({ type }) {
     : 'How Genk Studios collects, uses and protects your information.'
   const sections = isTerms ? termsSections : privacySections
 
-  const handlePointerMove = (event) => {
-    const cursor = document.querySelector('.custom-cursor')
-    if (!cursor) return
-    cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`
-  }
-
   return (
-    <main className="legal-page" onPointerMove={handlePointerMove}>
-      <div className="custom-cursor" aria-hidden="true" />
+    <main className="legal-page">
       <header className="legal-header">
         <a href="/" className="legal-brand" aria-label="Genk Studios home">
-          <img src="/gemini-svg.svg" alt="" />
-          <span>enk studios</span>
+          <span className="legal-mark" aria-hidden="true">
+            <svg viewBox="0 0 28 28" fill="none">
+              <path
+                d="M19.9 9.1a6.6 6.6 0 1 0 1.4 6.1h-5"
+                stroke="currentColor"
+                strokeWidth="2.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+          <span>
+            Genk <span className="legal-brand-dim">Studios</span>
+          </span>
         </a>
         <a href="/" className="legal-home-link">Back to home</a>
       </header>

@@ -1260,7 +1260,6 @@ h1, h2, h3 {
     font-size: clamp(2.4rem, 11vw, 3.4rem);
   }
 
-  .hero-strip,
   .work-grid,
   .principles-grid,
   .audience-grid,
@@ -1268,6 +1267,14 @@ h1, h2, h3 {
   .testimonial-grid,
   .quiz-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-strip {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case-study-image {
+    min-height: 190px;
   }
 
   .service-item,

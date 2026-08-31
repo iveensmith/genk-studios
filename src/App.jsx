@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 import LegalPage from './LegalPage.jsx'
 import { useTheme, ThemeToggle } from './theme.jsx'
+import { Backdrop } from './Backdrop.jsx'
 import caseRoleweave from './assets/case-roleweave.jpg'
 import caseUniquePredict from './assets/case-uniquepredict.jpg'
 import caseVoiceIQ from './assets/case-voiceiq.jpg'
@@ -339,6 +340,7 @@ function App() {
 
   return (
     <div className="page-shell">
+        <Backdrop />
         <header className="site-header">
           <div className="container nav-wrap">
             <Brand />

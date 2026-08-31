@@ -14,14 +14,16 @@ export function useTheme() {
   const [theme, setTheme] = useState(readTheme)
 
   useEffect(() => {
+    const bg = theme === 'light' ? '#e8e3d8' : '#0b0b0c'
     document.documentElement.setAttribute('data-theme', theme)
+    document.documentElement.style.background = bg
     try {
       localStorage.setItem(STORAGE_KEY, theme)
     } catch {
       /* storage unavailable — the choice just won't persist */
     }
     const meta = document.querySelector('meta[name="theme-color"]')
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#efe8da' : '#0b0b0c')
+    if (meta) meta.setAttribute('content', bg)
   }, [theme])
 
   const toggleTheme = () => setTheme((t) => (t === 'light' ? 'dark' : 'light'))

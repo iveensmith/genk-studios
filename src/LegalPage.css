@@ -11,13 +11,13 @@
 }
 
 :root[data-theme='light'] {
-  --legal-bg: #efe8da;
-  --legal-surface: #e6ddc9;
-  --legal-text: #201c14;
-  --legal-muted: #635c4c;
-  --legal-faint: #837a63;
-  --legal-line: rgba(34, 30, 23, 0.13);
-  --legal-accent: #9a7422;
+  --legal-bg: #e8e3d8;
+  --legal-surface: #ded7c7;
+  --legal-text: #211d15;
+  --legal-muted: #605a4a;
+  --legal-faint: #7d7459;
+  --legal-line: rgba(33, 29, 21, 0.13);
+  --legal-accent: #8f6a1c;
 }
 
 .legal-header-end {
@@ -32,7 +32,7 @@
 
 .legal-page {
   min-height: 100vh;
-  background: var(--legal-bg);
+  background: transparent;
   color: var(--legal-text);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;

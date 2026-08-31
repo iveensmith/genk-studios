@@ -1,5 +1,6 @@
 import './LegalPage.css'
 import { useTheme, ThemeToggle } from './theme.jsx'
+import { Backdrop } from './Backdrop.jsx'
 
 const updatedDate = 'August 14, 2026'
 
@@ -84,6 +85,7 @@ function LegalPage({ type }) {
 
   return (
     <main className="legal-page">
+      <Backdrop />
       <header className="legal-header">
         <a href="/" className="legal-brand" aria-label="Genk Studios home">
           <span className="legal-mark" aria-hidden="true">

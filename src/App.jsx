@@ -461,9 +461,9 @@ function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`hero-shot hero-shot-${index + 1}`}
-                    style={{ '--shot': `url(${study.image})` }}
                     aria-label={`${study.title} — open the live site`}
                   >
+                    <img src={study.image} alt={`${study.title} website`} loading="lazy" />
                     <span className="hero-shot-label">{study.title}</span>
                   </a>
                 ))}

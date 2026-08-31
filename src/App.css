@@ -516,12 +516,21 @@ h1, h2, h3 {
   aspect-ratio: 16 / 10;
   border-radius: 14px;
   border: 1px solid var(--line-strong);
-  background: var(--shot) top center / cover no-repeat, var(--card);
+  background: var(--card);
   box-shadow: var(--shadow-lift);
   overflow: hidden;
   transform: translateY(0) rotate(var(--rot));
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   animation: shotIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.hero-shot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .hero-shot::after {

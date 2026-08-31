@@ -104,61 +104,32 @@ const services = [
   {
     number: '01',
     title: 'Websites',
-    description:
-      'Marketing websites, landing pages and conversion-focused brand experiences for ambitious businesses.',
+    description: 'Marketing sites and landing pages that load fast and are built to convert.',
   },
   {
     number: '02',
     title: 'Web Apps',
-    description:
-      'Dashboards, SaaS platforms and custom web applications designed around real user needs and growth goals.',
+    description: 'Dashboards, SaaS platforms and internal tools designed around how people actually use them.',
   },
   {
     number: '03',
     title: 'UI/UX Design',
-    description:
-      'Interfaces built for clarity, usability, and conversion, with thoughtful decisions behind every interaction.',
+    description: 'Interfaces that are clear to use and quick to learn, with a reason behind every screen.',
   },
   {
     number: '04',
     title: 'Branding',
-    description:
-      'Visual identities, logos and digital brand systems that give businesses a more recognizable presence.',
+    description: 'Identity systems — logo, type, colour and the rules that keep them consistent everywhere.',
   },
   {
     number: '05',
     title: 'AI & Automation',
-    description:
-      'AI-powered tools, workflows and digital products that reduce repetitive work and unlock faster execution.',
+    description: 'AI features and workflows that take the repetitive work off your team.',
   },
   {
     number: '06',
     title: 'Voice Agents',
-    description:
-      'Conversational voice agents that answer calls, qualify leads and give customers useful support around the clock.',
-  },
-]
-
-const principles = [
-  {
-    number: '01',
-    title: 'Strategy first',
-    description: 'We understand the business, audience and opportunity before we touch the interface.',
-  },
-  {
-    number: '02',
-    title: 'Design that feels intentional',
-    description: 'Every interaction, spacing decision and component is shaped with purpose and clarity.',
-  },
-  {
-    number: '03',
-    title: 'Built to perform',
-    description: 'Fast, responsive and technically solid experiences that are ready for real-world use.',
-  },
-  {
-    number: '04',
-    title: 'Designed for growth',
-    description: 'Your website should evolve with your business, not need a reset every year.',
+    description: 'Voice agents that answer calls, qualify leads and handle support around the clock.',
   },
 ]
 
@@ -172,15 +143,15 @@ const stats = [
 const workItems = [
   {
     label: 'Strategy',
-    text: 'Naming, vision and opportunity-shaping for ambitious brands.',
+    text: 'Positioning, naming and the shape of the opportunity, decided before anything gets designed.',
   },
   {
     label: 'Design',
-    text: 'Identity systems and digital expressions built to stand out.',
+    text: 'Identity, interface and the small decisions that make a product feel considered.',
   },
   {
     label: 'Build',
-    text: 'Responsive, conversion-ready products crafted for real business goals.',
+    text: 'Production code deployed on your stack, fast and built to last.',
   },
 ]
 
@@ -230,13 +201,6 @@ const processSteps = [
   'Build — We turn the design into a responsive, production-ready product.',
   'Launch — We test, optimize and ship with confidence.',
   'Grow — We continue improving the product based on performance and feedback.',
-]
-
-const audience = [
-  'Startups',
-  'SMEs',
-  'Established brands',
-  'Founders',
 ]
 
 const engagement = [
@@ -462,7 +426,7 @@ function App() {
 
                 <div className="hero-meta hero-enter hero-enter-2">
                   <p>
-                    Genk Studios designs and develops high-performance websites, web apps and digital products for ambitious brands.
+                    Genk Studios designs and builds websites, web apps, brands and AI products — the strategy, the interface and the code that ships them.
                   </p>
                   <div className="hero-actions">
                     <a href="#contact" className="btn btn-primary">
@@ -573,24 +537,23 @@ function App() {
             </div>
           </section>
 
-          <section className="why-genk section" id="about">
-            <div className="container">
-              <div className="section-header narrow-header">
-                <div className="eyebrow">Why Genk?</div>
-                <h2>
-                  We don&apos;t just build websites.<br />
-                  We build digital experiences designed to perform.
-                </h2>
+          <section className="about section" id="about">
+            <div className="container about-layout">
+              <div className="about-head">
+                <div className="eyebrow">About</div>
+                <h2>An independent studio, small on purpose.</h2>
               </div>
-
-              <div className="principles-grid">
-                {principles.map((principle, index) => (
-                  <article key={principle.number} className={`principle-card reveal-up reveal-delay-${index + 1}`}>
-                    <span>{principle.number}</span>
-                    <h3>{principle.title}</h3>
-                    <p>{principle.description}</p>
-                  </article>
-                ))}
+              <div className="about-body reveal-up">
+                <p>
+                  Genk Studios takes on a handful of projects at a time and carries each one from the
+                  first conversation to launch — strategy, interface and the code that ships it.
+                </p>
+                <p>
+                  Fewer people between you and the work means faster decisions and less lost in
+                  translation. We build for founders and small teams who treat their product as the
+                  thing that represents them, and every build is handed over documented so your own
+                  developers can take it from there.
+                </p>
               </div>
             </div>
           </section>
@@ -599,7 +562,7 @@ function App() {
             <div className="container">
               <div className="section-header">
                 <div className="eyebrow">What we do</div>
-                <h2>Websites, apps, strategy and digital systems built for growth.</h2>
+                <h2>From a landing page to a shipped product, handled in one place.</h2>
               </div>
 
               <div className="service-grid">
@@ -628,23 +591,6 @@ function App() {
                   <div key={step} className={`reveal-up reveal-delay-${index + 1}`}>
                     <span>{String(index + 1).padStart(2, '0')}</span>
                     <p>{step}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="audience section">
-            <div className="container">
-              <div className="section-header narrow-header">
-                <div className="eyebrow">Who we work with</div>
-                <h2>Built for ambitious businesses ready to grow.</h2>
-              </div>
-
-              <div className="audience-grid">
-                {audience.map((item, index) => (
-                  <div key={item} className={`audience-pill reveal-up reveal-delay-${index + 1}`}>
-                    {item}
                   </div>
                 ))}
               </div>
@@ -779,7 +725,7 @@ function App() {
           <div className="container footer-main">
             <div className="footer-intro">
               <Brand />
-              <p>Independent digital product studio for ambitious businesses.</p>
+              <p>Independent product studio. Strategy, design and build, in one place.</p>
               <a className="footer-email" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </div>
 

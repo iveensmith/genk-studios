@@ -239,24 +239,18 @@ const audience = [
   'Founders',
 ]
 
-const testimonials = [
+const engagement = [
   {
-    quote:
-      'Genk Studios completely transformed how our product looks and feels. The process was thoughtful, sharp and genuinely collaborative from start to finish.',
-    name: 'Kini Smith',
-    role: 'Founder, MediPlus',
+    title: 'One team, start to finish',
+    text: 'The person who scopes your project is the person who designs and builds it. No handoffs, no account managers, one thread to reply to.',
   },
   {
-    quote:
-      'They understood the business problem before the design problem. That clarity made all the difference in how we launched and grew.',
-    name: 'Sarah Okafor',
-    role: 'Marketing Lead, Northstar',
+    title: 'You see it as it’s built',
+    text: 'Short async updates every few days — a working link you can click and a note on what changed, not a status meeting.',
   },
   {
-    quote:
-      'The final experience felt premium, fast and conversion-focused. It gave our brand a level of confidence we were missing before.',
-    name: 'Daniel Mensah',
-    role: 'CEO, Vantage Studio',
+    title: 'You own everything',
+    text: 'Code, design files and accounts are yours, deployed on your stack and documented so any developer can pick it up later.',
   },
 ]
 
@@ -287,6 +281,10 @@ function App() {
   const [formState, setFormState] = useState('idle') // idle | submitting | success | error
 
   useEffect(() => {
+    // Opt in to the hide-then-reveal behaviour only once JS is running,
+    // so the content stays visible if the script is slow or fails.
+    document.documentElement.classList.add('js-reveal')
+
     const revealItems = document.querySelectorAll('.reveal-up')
     if (!revealItems.length) return
 
@@ -449,40 +447,62 @@ function App() {
               <span />
             </div>
 
-            <div className="container">
-              <div className="hero-intro reveal-up">Digital product studio</div>
-              <h1
-                className="hero-title"
-                aria-label="Build a digital presence that moves your business forward."
-              >
-                <span className="hero-title-inner" aria-hidden="true">
-                  <span className="hero-title-line">Build a digital presence</span>
-                  <span className="hero-title-line dim">that moves your business forward.</span>
-                </span>
-              </h1>
+            <div className="container hero-layout">
+              <div className="hero-copy">
+                <div className="hero-intro hero-enter">Digital product studio</div>
+                <h1
+                  className="hero-title"
+                  aria-label="Build a digital presence that moves your business forward."
+                >
+                  <span className="hero-title-inner" aria-hidden="true">
+                    <span className="hero-title-line">Build a digital presence</span>
+                    <span className="hero-title-line dim">that moves your business forward.</span>
+                  </span>
+                </h1>
 
-              <div className="hero-meta reveal-up reveal-delay-2">
-                <p>
-                  Genk Studios designs and develops high-performance websites, web apps and digital experiences for ambitious brands.
-                </p>
-                <div className="hero-actions">
-                  <a href="#contact" className="btn btn-primary">
-                    Start a project
-                  </a>
-                  <a href="#work" className="btn btn-secondary">
-                    View our work
-                  </a>
+                <div className="hero-meta hero-enter hero-enter-2">
+                  <p>
+                    Genk Studios designs and develops high-performance websites, web apps and digital products for ambitious brands.
+                  </p>
+                  <div className="hero-actions">
+                    <a href="#contact" className="btn btn-primary">
+                      Start a project
+                    </a>
+                    <a href="#work" className="btn btn-secondary">
+                      View our work
+                    </a>
+                  </div>
+                </div>
+
+                <div className="hero-tagline hero-enter hero-enter-3">
+                  Web Design • Development • Branding • Digital Products • AI Automation • Voice Agents
                 </div>
               </div>
 
-              <div className="hero-tagline reveal-up reveal-delay-3">
-                Web Design • Development • Branding • Digital Products • AI Automation • Voice Agents
+              <div className="hero-showcase" aria-label="Recent work">
+                {caseStudies.map((study, index) => (
+                  <a
+                    key={study.title}
+                    href={study.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`hero-shot hero-shot-${index + 1}`}
+                    style={{ '--shot': `url(${study.image})` }}
+                    aria-label={`${study.title} — open the live site`}
+                  >
+                    <span className="hero-shot-label">{study.title}</span>
+                  </a>
+                ))}
               </div>
             </div>
 
             <div className="container hero-strip">
               {stats.map((stat, index) => (
-                <div key={stat.label} className={`metric-pill reveal-up reveal-delay-${index + 4}`}>
+                <div
+                  key={stat.label}
+                  className="metric-pill hero-enter"
+                  style={{ animationDelay: `${0.34 + index * 0.08}s` }}
+                >
                   <CountUp value={stat.value} />
                   <small>{stat.label}</small>
                 </div>
@@ -631,24 +651,18 @@ function App() {
             </div>
           </section>
 
-          <section className="testimonials section">
+          <section className="engagement section">
             <div className="container">
               <div className="section-header narrow-header">
-                <div className="eyebrow">Testimonials</div>
-                <h2>Trusted by founders and teams building what&apos;s next.</h2>
+                <div className="eyebrow">Working with Genk</div>
+                <h2>One studio from the first call to launch — no handoffs.</h2>
               </div>
 
-              <div className="testimonial-grid">
-                {testimonials.map((item, index) => (
-                  <article key={item.name} className={`testimonial-card reveal-up reveal-delay-${index + 1}`}>
-                    <p className="quote">“{item.quote}”</p>
-                    <div className="testimonial-author">
-                      <div className="avatar">{item.name.charAt(0)}</div>
-                      <div>
-                        <strong>{item.name}</strong>
-                        <span>{item.role}</span>
-                      </div>
-                    </div>
+              <div className="engagement-grid">
+                {engagement.map((item, index) => (
+                  <article key={item.title} className={`engagement-card reveal-up reveal-delay-${index + 1}`}>
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
                   </article>
                 ))}
               </div>

@@ -435,9 +435,8 @@ h1, h2, h3 {
 .work-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 340px;
-  padding: 26px 22px;
+  gap: 28px;
+  padding: 24px 22px 26px;
   border: 1px solid var(--line);
   border-radius: 22px;
   background: linear-gradient(158deg, #17140e 0%, #0d0d0e 62%);

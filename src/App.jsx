@@ -346,7 +346,7 @@ function App() {
             </div>
           </section>
 
-          <section className="showcase section" id="work">
+          <section className="showcase section" id="selected-work">
             <div className="container">
               <div className="section-header split-header">
                 <div className="eyebrow">Selected work</div>
@@ -370,7 +370,7 @@ function App() {
             </div>
           </section>
 
-          <section className="case-studies section">
+          <section className="case-studies section" id="work">
             <div className="container">
               <div className="section-header">
                 <div className="eyebrow">Case studies</div>

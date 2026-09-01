@@ -952,11 +952,13 @@ h1, h2, h3 {
 }
 
 
-/* Engagement: one wide lead tile then a two-up row (mirror of the work grid) */
+/* "How we work with you" cards under the About statement:
+   one wide lead tile then a two-up row (mirror of the work grid). */
 .engagement-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
+  margin-top: 44px;
 }
 
 .engagement-card:first-child {

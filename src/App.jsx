@@ -201,12 +201,10 @@ const caseStudies = [
 ]
 
 const processSteps = [
-  'Discover: we understand your business, audience and goals.',
-  'Strategize: we define the structure, features and visual direction.',
-  'Design: we create the interface and experience around the user journey.',
-  'Build: we turn the design into a responsive, production-ready product.',
-  'Launch: we test, optimize and ship with confidence.',
-  'Grow: we keep improving the product based on performance and feedback.',
+  'Scope: one call to pin down what you are building, who it is for and what a good result looks like.',
+  'Design: the structure and the key screens, shown to you as clickable work rather than slides.',
+  'Build: production code on your stack, shipped in the open so progress is always something you can try.',
+  'Launch: we ship it live, hand your team the code and stay on for the first round of fixes.',
 ]
 
 const engagement = [
@@ -537,21 +535,30 @@ function App() {
           </section>
 
           <section className="about section" id="about">
-            <div className="container about-layout">
-              <div className="about-head">
-                <h2>An independent studio, small on purpose.</h2>
+            <div className="container">
+              <div className="about-layout">
+                <div className="about-head">
+                  <h2>An independent studio, small on purpose.</h2>
+                </div>
+                <div className="about-body reveal-up">
+                  <p>
+                    Genk Studios takes on a handful of projects at a time and carries each one from
+                    the first conversation to launch. Fewer people between you and the work means
+                    faster decisions and less lost in translation.
+                  </p>
+                </div>
               </div>
-              <div className="about-body reveal-up">
-                <p>
-                  Genk Studios takes on a handful of projects at a time and carries each one from the
-                  first conversation to launch: strategy, interface and the code that ships it.
-                </p>
-                <p>
-                  Fewer people between you and the work means faster decisions and less lost in
-                  translation. We build for founders and small teams who treat their product as the
-                  thing that represents them, and every build is handed over documented so your own
-                  developers can take it from there.
-                </p>
+
+              <div className="engagement-grid">
+                {engagement.map((item, index) => (
+                  <article
+                    key={item.title}
+                    className={`engagement-card reveal-up reveal-delay-${index + 1}`}
+                  >
+                    <h3>{item.title}</h3>
+                    <p>{item.text}</p>
+                  </article>
+                ))}
               </div>
             </div>
           </section>
@@ -580,7 +587,7 @@ function App() {
           <section className="process section" id="process">
             <div className="container process-layout">
               <div className="process-copy">
-                <h2>A clear process that keeps projects focused and momentum high.</h2>
+                <h2>The four stages of a build.</h2>
               </div>
 
               <div className="process-steps">
@@ -589,23 +596,6 @@ function App() {
                     <span>{String(index + 1).padStart(2, '0')}</span>
                     <p>{step}</p>
                   </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section className="engagement section">
-            <div className="container">
-              <div className="section-header narrow-header">
-                <h2>One studio from the first call to launch, no handoffs.</h2>
-              </div>
-
-              <div className="engagement-grid">
-                {engagement.map((item, index) => (
-                  <article key={item.title} className={`engagement-card reveal-up reveal-delay-${index + 1}`}>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </article>
                 ))}
               </div>
             </div>

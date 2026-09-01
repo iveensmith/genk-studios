@@ -81,6 +81,7 @@ for (const [route, { title, description, image, imageAlt }] of Object.entries(ro
   if (image) {
     const img = SITE + image
     const alt = esc(imageAlt || title)
+    html = setTag(html, /<meta\s+property="og:type"\s+content="[\s\S]*?"\s*\/>/, `<meta property="og:type" content="article" />`)
     html = setTag(html, /<meta\s+property="og:image"\s+content="[\s\S]*?"\s*\/>/, `<meta property="og:image" content="${img}" />`)
     html = setTag(html, /<meta\s+property="og:image:alt"\s+content="[\s\S]*?"\s*\/>/, `<meta property="og:image:alt" content="${alt}" />`)
     html = setTag(html, /<meta\s+name="twitter:image"\s+content="[\s\S]*?"\s*\/>/, `<meta name="twitter:image" content="${img}" />`)

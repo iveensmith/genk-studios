@@ -1,7 +1,8 @@
-// Regenerate the Open Graph cards in public/ (og*.png, 1200x630).
-// Needs the dev server running (npm run dev) and Google Chrome installed.
-// Copies scripts/og-template.html into public/ so Vite serves it, shoots each
-// card with headless Chrome, then removes the copy.
+// Regenerate the share images in public/: the OG cards (og*.png, 1200x630)
+// and the app icon (icon.png, 512x512). Needs the dev server running
+// (npm run dev) and Google Chrome installed. Copies the templates into
+// public/ so Vite serves them, shoots each with headless Chrome, then
+// removes the copies.
 import { copyFile, rm } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { execFileSync } from 'node:child_process'
@@ -9,8 +10,8 @@ import { join, resolve } from 'node:path'
 
 const ORIGIN = process.env.OG_ORIGIN || 'http://localhost:5173'
 const PUBLIC = 'public'
-const TEMPLATE_SRC = join('scripts', 'og-template.html')
-const TEMPLATE_PUB = join(PUBLIC, 'og-template.html')
+
+const templates = ['og-template.html', 'icon-template.html']
 
 const CHROME =
   process.env.CHROME_PATH ||
@@ -26,7 +27,9 @@ if (!CHROME) {
   process.exit(1)
 }
 
-// title accepts \n for a hard line break (encoded as %0A in the URL).
+// Each card: out (filename), template (default og-template.html), size
+// (default 1200,630), and the template's own query params. title accepts
+// \n for a hard line break (encoded as %0A in the URL).
 const cards = [
   {
     out: 'og.png',
@@ -64,18 +67,26 @@ const cards = [
     slug: 'workflowauth',
     desc: 'An AI front desk that answers every call and books the job.',
   },
+  { out: 'icon.png', template: 'icon-template.html', size: '512,512' },
 ]
 
+const META = new Set(['out', 'template', 'size'])
 const qs = (o) =>
   Object.entries(o)
-    .filter(([k]) => k !== 'out')
+    .filter(([k]) => !META.has(k))
     .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
     .join('&')
 
-await copyFile(TEMPLATE_SRC, TEMPLATE_PUB)
+// Optional filter: `node scripts/og-generate.mjs icon` shoots only matching cards.
+const filter = process.argv[2]
+const selected = filter ? cards.filter((c) => c.out.includes(filter)) : cards
+
+await Promise.all(templates.map((t) => copyFile(join('scripts', t), join(PUBLIC, t))))
 try {
-  for (const card of cards) {
-    const url = `${ORIGIN}/og-template.html?${qs(card)}`
+  for (const card of selected) {
+    const template = card.template || 'og-template.html'
+    const query = qs(card)
+    const url = `${ORIGIN}/${template}${query ? `?${query}` : ''}`
     const out = resolve(PUBLIC, card.out).replace(/\\/g, '/')
     execFileSync(CHROME, [
       '--headless=new',
@@ -84,12 +95,12 @@ try {
       '--force-color-profile=srgb',
       '--run-all-compositor-stages-before-draw',
       '--virtual-time-budget=8000',
-      '--window-size=1200,630',
+      `--window-size=${card.size || '1200,630'}`,
       `--screenshot=${out}`,
       url,
     ])
     console.log('wrote', out)
   }
 } finally {
-  await rm(TEMPLATE_PUB, { force: true })
+  await Promise.all(templates.map((t) => rm(join(PUBLIC, t), { force: true })))
 }

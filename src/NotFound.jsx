@@ -39,6 +39,7 @@ function NotFound() {
 
   return (
     <main className="cs-page">
+      <a href="#nf-content" className="skip-link">Skip to content</a>
       <Backdrop />
 
       <header className="cs-header">
@@ -54,7 +55,7 @@ function NotFound() {
         </div>
       </header>
 
-      <section className="nf-body">
+      <section className="nf-body" id="nf-content" tabIndex={-1}>
         <p className="nf-code">Error 404</p>
         <h1 className="nf-title">This page took a wrong turn.</h1>
         <p className="nf-text">

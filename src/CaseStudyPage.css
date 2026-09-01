@@ -100,12 +100,14 @@
 .cs-lead {
   margin: 44px 0 8px;
   border: 1px solid var(--line-strong);
-  border-radius: 18px;
+  border-radius: var(--r-md);
   overflow: hidden;
   box-shadow: var(--shadow);
   background: var(--card);
 }
 
+/* width/height attrs on the <img> reserve the space (no layout shift on load);
+   height:auto lets each image keep its own ratio. */
 .cs-lead img,
 .cs-shot img {
   display: block;
@@ -163,7 +165,7 @@
 .cs-shot {
   margin-top: 60px;
   border: 1px solid var(--line-strong);
-  border-radius: 18px;
+  border-radius: var(--r-md);
   overflow: hidden;
   box-shadow: var(--shadow-card);
   background: var(--card);

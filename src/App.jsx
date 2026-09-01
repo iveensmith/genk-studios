@@ -377,6 +377,7 @@ function App() {
 
   return (
     <div className="page-shell">
+        <a href="#top" className="skip-link">Skip to content</a>
         <Backdrop />
         <header className="site-header">
           <div className="container nav-wrap">
@@ -415,7 +416,7 @@ function App() {
           </div>
         </header>
 
-        <main id="top">
+        <main id="top" tabIndex={-1}>
           <section className="hero">
             <div className="hero-orb orb-one" />
             <div className="hero-orb orb-two" />

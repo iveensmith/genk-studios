@@ -34,6 +34,7 @@ function CaseStudyPage({ study, all }) {
 
   return (
     <main className="cs-page">
+      <a href="#cs-content" className="skip-link">Skip to content</a>
       <Backdrop />
 
       <header className="cs-header">
@@ -49,7 +50,7 @@ function CaseStudyPage({ study, all }) {
         </div>
       </header>
 
-      <article className="cs-body">
+      <article className="cs-body" id="cs-content" tabIndex={-1}>
         <div className="cs-intro">
           <div className="eyebrow">{study.category}</div>
           <h1>{study.title}</h1>
@@ -62,7 +63,13 @@ function CaseStudyPage({ study, all }) {
         </div>
 
         <div className="cs-lead">
-          <img src={study.image} alt={`${study.title} website`} />
+          <img
+            src={study.image}
+            alt={`${study.title} website`}
+            width="1568"
+            height="704"
+            fetchPriority="high"
+          />
         </div>
 
         <section className="cs-section">
@@ -89,7 +96,13 @@ function CaseStudyPage({ study, all }) {
         </section>
 
         <div className="cs-shot">
-          <img src={study.detailImage} alt={`${study.title} product screen`} loading="lazy" />
+          <img
+            src={study.detailImage}
+            alt={`${study.title} product screen`}
+            width="1568"
+            height="704"
+            loading="lazy"
+          />
         </div>
 
         <a href={`/work/${next.slug}`} className="cs-next">

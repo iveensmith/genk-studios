@@ -104,6 +104,28 @@ h1, h2, h3 {
 
 .page-shell { position: relative; }
 
+/* Keyboard users land here first; visible only on focus. */
+.skip-link {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--r-sm);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  transform: translateY(-160%);
+  transition: transform 0.16s var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--white);
+  outline-offset: 2px;
+}
+
 /* Ambient background flourish */
 .backdrop-flourish {
   position: fixed;

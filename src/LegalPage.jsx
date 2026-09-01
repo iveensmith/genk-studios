@@ -85,6 +85,7 @@ function LegalPage({ type }) {
 
   return (
     <main className="legal-page">
+      <a href="#legal-content" className="skip-link">Skip to content</a>
       <Backdrop />
       <header className="legal-header">
         <a href="/" className="legal-brand" aria-label="Genk Studios home">
@@ -109,7 +110,7 @@ function LegalPage({ type }) {
         </div>
       </header>
 
-      <article className="legal-content">
+      <article className="legal-content" id="legal-content" tabIndex={-1}>
         <div className="legal-kicker">Genk Studios</div>
         <h1>{title}</h1>
         <p className="legal-intro">{introduction}</p>

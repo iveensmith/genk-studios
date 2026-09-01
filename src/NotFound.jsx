@@ -31,7 +31,7 @@ function NotFound() {
 
   useEffect(() => {
     const previous = document.title
-    document.title = 'Page not found — Genk Studios'
+    document.title = 'Page not found | Genk Studios'
     return () => {
       document.title = previous
     }

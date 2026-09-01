@@ -1,9 +1,10 @@
 <!doctype html>
 <!--
-  Generator for the per-project Open Graph cards (public/og-<slug>.png, 1200×630).
-  Not shipped — kept in scripts/ for regeneration. To use: copy into public/,
-  open /og-template.html?title=Roleweave&cat=AI+career+tool&desc=...&slug=roleweave,
-  screenshot the 1200×630 frame, save as public/og-<slug>.png, then remove from public/.
+  Generator for the Open Graph cards (public/og*.png, 1200×630). Not shipped;
+  kept in scripts/ for regeneration. Run `node scripts/og-generate.mjs` with the
+  dev server up; it copies this file into public/, shoots each card with headless
+  Chrome and cleans up. Params: title, cat, desc, slug (project cards) or
+  eyebrow, tag, url, mode=home (site default). title accepts %0A for a line break.
 -->
 <html lang="en">
 <head>
@@ -17,45 +18,46 @@
   body {
     position: relative;
     background:
-      radial-gradient(120% 90% at 12% 8%, rgba(201,162,95,0.22), transparent 55%),
-      radial-gradient(90% 80% at 96% 108%, rgba(230,207,156,0.08), transparent 60%),
-      #0b0b0c;
-    color: #f3efe7;
+      radial-gradient(120% 90% at 12% 8%, rgba(229,129,63,0.20), transparent 55%),
+      radial-gradient(90% 80% at 96% 108%, rgba(242,149,90,0.07), transparent 60%),
+      #0c0d0f;
+    color: #eceef1;
     font-family: 'Inter', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   .flourish { position: absolute; top: -96px; right: -70px; width: 380px; }
-  .flourish path { fill: none; stroke: rgba(201,162,95,0.13); stroke-width: 2; stroke-linecap: round; }
+  .flourish path { fill: none; stroke: rgba(229,129,63,0.13); stroke-width: 2; stroke-linecap: round; }
   .frame { position: absolute; inset: 0; padding: 70px 80px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
   .brand { position: absolute; top: 64px; left: 80px; display: flex; align-items: center; gap: 14px; }
-  .mark { width: 40px; height: 40px; color: #c9a25f; }
+  .mark { width: 40px; height: 40px; color: #e5813f; }
   .mark svg { display: block; width: 100%; height: 100%; }
   .brand span { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
-  .brand .dim { color: #a8a29a; }
+  .brand .dim { color: #9b9ea6; }
   .eyebrow {
     display: flex; align-items: center; gap: 16px;
     font-family: 'Space Mono', monospace;
-    font-size: 16px; letter-spacing: 0.16em; text-transform: uppercase; color: #a8a29a;
+    font-size: 16px; letter-spacing: 0.16em; text-transform: uppercase; color: #9b9ea6;
     margin-bottom: 22px;
   }
-  .eyebrow::before { content: ''; width: 54px; height: 1px; background: #c9a25f; }
+  .eyebrow::before { content: ''; width: 54px; height: 1px; background: #e5813f; }
   h1 {
     font-family: 'Bricolage Grotesque', sans-serif;
     font-weight: 700; font-size: 82px; line-height: 1.02;
     letter-spacing: -0.038em; margin-bottom: 22px;
+    white-space: pre-line;
   }
-  .desc { max-width: 34ch; color: #b8b2a8; font-size: 24px; line-height: 1.5; }
+  .desc { max-width: 34ch; color: #b6b8be; font-size: 24px; line-height: 1.5; }
   .foot {
     position: absolute; left: 80px; right: 80px; bottom: 62px;
     display: flex; align-items: center; justify-content: space-between;
-    padding-top: 24px; border-top: 1px solid rgba(240,236,228,0.12);
+    padding-top: 24px; border-top: 1px solid rgba(236,238,241,0.12);
   }
-  .foot::before { content: ''; position: absolute; top: -1px; left: 0; width: 72px; height: 1px; background: #c9a25f; }
+  .foot::before { content: ''; position: absolute; top: -1px; left: 0; width: 72px; height: 1px; background: #e5813f; }
   .foot .tag, .foot .url {
     font-family: 'Space Mono', monospace; font-size: 16px; letter-spacing: 0.08em; text-transform: uppercase;
   }
-  .foot .tag { color: #6f6a62; }
-  .foot .url { color: #c9a25f; letter-spacing: 0.04em; text-transform: none; }
+  .foot .tag { color: #6f727a; }
+  .foot .url { color: #e5813f; letter-spacing: 0.04em; text-transform: none; }
 </style>
 </head>
 <body>
@@ -83,11 +85,14 @@
   <script>
     const p = new URLSearchParams(location.search)
     const cat = p.get('cat') || ''
-    document.getElementById('eyebrow').textContent = cat ? 'Case study · ' + cat : 'Case study'
+    const home = p.get('mode') === 'home'
+    document.getElementById('eyebrow').textContent =
+      p.get('eyebrow') || (home ? 'Digital product studio' : cat ? 'Case study · ' + cat : 'Case study')
     document.getElementById('title').textContent = p.get('title') || 'Project'
     document.getElementById('desc').textContent = p.get('desc') || ''
-    document.getElementById('tag').textContent = cat || 'Case study'
-    document.getElementById('url').textContent = 'genkstudios.netlify.app/work/' + (p.get('slug') || '')
+    document.getElementById('tag').textContent = p.get('tag') || cat || 'Case study'
+    document.getElementById('url').textContent =
+      p.get('url') || 'genkstudios.netlify.app/work/' + (p.get('slug') || '')
   </script>
 </body>
 </html>

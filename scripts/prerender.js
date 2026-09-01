@@ -1,6 +1,6 @@
 // Post-build: write a static HTML file per route with the correct
 // <title>, description, canonical and Open Graph tags in the raw head.
-// The app is still client-rendered — this fixes link previews and gives
+// The app is still client-rendered; this fixes link previews and gives
 // crawlers per-page metadata without a headless browser in the build.
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { join, dirname } from 'node:path'
@@ -14,40 +14,40 @@ const SITE = 'https://genkstudios.netlify.app'
 // Routes without an `image` keep the site default card in the base head (/og.png).
 const routes = {
   '/terms': {
-    title: 'Terms of Use — Genk Studios',
+    title: 'Terms of Use | Genk Studios',
     description: 'The terms that govern your use of the Genk Studios website.',
   },
   '/privacy': {
-    title: 'Privacy Policy — Genk Studios',
+    title: 'Privacy Policy | Genk Studios',
     description: 'How Genk Studios collects, uses and protects your information.',
   },
   '/work/roleweave': {
-    title: 'Roleweave — Genk Studios',
+    title: 'Roleweave | Genk Studios',
     description:
-      'Case study: an AI career tool that rewrites a CV to match a job posting and generates the whole application — cover letter, recruiter note, interview brief — from the same evidence.',
+      'Case study: an AI career tool that rewrites a CV to match a job posting and generates the whole application, from cover letter to recruiter note to interview brief, off the same evidence.',
     image: '/og-roleweave.png',
-    imageAlt: 'Roleweave — a Genk Studios case study',
+    imageAlt: 'Roleweave, a Genk Studios case study',
   },
   '/work/uniquepredict': {
-    title: 'UniquePredict — Genk Studios',
+    title: 'UniquePredict | Genk Studios',
     description:
       'Case study: a football prediction platform where every tip across 30 leagues comes from a Poisson and Dixon-Coles model, published daily with a public, unedited results archive.',
     image: '/og-uniquepredict.png',
-    imageAlt: 'UniquePredict — a Genk Studios case study',
+    imageAlt: 'UniquePredict, a Genk Studios case study',
   },
   '/work/voiceiq': {
-    title: 'VoiceIQ — Genk Studios',
+    title: 'VoiceIQ | Genk Studios',
     description:
       'Case study: a QA and certification platform that tests AI voice agents with real phone calls and verifies the actions they claim to take.',
     image: '/og-voiceiq.png',
-    imageAlt: 'VoiceIQ — a Genk Studios case study',
+    imageAlt: 'VoiceIQ, a Genk Studios case study',
   },
   '/work/workflowauth': {
-    title: 'WorkflowAuth — Genk Studios',
+    title: 'WorkflowAuth | Genk Studios',
     description:
       'Case study: a done-for-you AI front desk that answers every call for local service businesses, qualifies the lead and books the job.',
     image: '/og-workflowauth.png',
-    imageAlt: 'WorkflowAuth — a Genk Studios case study',
+    imageAlt: 'WorkflowAuth, a Genk Studios case study',
   },
 }
 
@@ -55,7 +55,7 @@ const base = await readFile(join(DIST, 'index.html'), 'utf8')
 
 const setTag = (html, pattern, replacement) => {
   if (!pattern.test(html)) {
-    console.warn('prerender: pattern not found —', pattern)
+    console.warn('prerender: pattern not found:', pattern)
     return html
   }
   return html.replace(pattern, replacement)

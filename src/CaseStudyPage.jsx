@@ -26,7 +26,7 @@ function CaseStudyPage({ study, all }) {
 
   useEffect(() => {
     const previous = document.title
-    document.title = `${study.title} — Genk Studios`
+    document.title = `${study.title} | Genk Studios`
     return () => {
       document.title = previous
     }
@@ -89,7 +89,7 @@ function CaseStudyPage({ study, all }) {
         </section>
 
         <div className="cs-shot">
-          <img src={study.detailImage} alt={`${study.title} — product screen`} loading="lazy" />
+          <img src={study.detailImage} alt={`${study.title} product screen`} loading="lazy" />
         </div>
 
         <a href={`/work/${next.slug}`} className="cs-next">

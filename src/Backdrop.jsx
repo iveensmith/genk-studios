@@ -1,7 +1,7 @@
 // Ambient calligraphic flourishes behind the page.
 // Each curl is its own edge-anchored SVG so the set adapts to any
 // viewport (a single slice'd SVG only showed its centre strip on mobile).
-// Colour comes from --flourish (gold in dark, warm near-black in light).
+// Colour comes from --flourish (burnt orange in dark, near-black in light).
 const curls = [
   { cls: 'bf-1', box: '0 0 200 220', d: 'M40 12c80 10 120 82 70 142-40 50-118 32-106-48 8-56 78-70 104-26 20 34-6 78-40 66' },
   { cls: 'bf-2', box: '0 0 240 180', d: 'M12 44C92-8 154 58 122 110c-24 40-100 30-90-40 6-40 62-36 74 6' },

@@ -388,7 +388,7 @@ function App() {
                   key={item.label}
                   href={item.href}
                   onClick={closeMenu}
-                  style={{ animationDelay: `${item.delay}ms` }}
+                  style={{ '--nav-delay': `${item.delay}ms` }}
                 >
                   {item.label}
                 </a>

@@ -304,9 +304,6 @@ function App() {
   const { theme, toggleTheme } = useTheme()
   const [menuOpen, setMenuOpen] = useState(false)
   const messageRef = useRef(null)
-  const heroRef = useRef(null)
-  const pointerRef = useRef({ x: 0, y: 0 })
-  const pointerFrame = useRef(0)
   const [selectedBuild, setSelectedBuild] = useState('Website')
   const [selectedGoal, setSelectedGoal] = useState('Launch something new')
   const [formState, setFormState] = useState('idle') // idle | submitting | success | error
@@ -359,23 +356,6 @@ function App() {
     }
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
     window.setTimeout(() => field?.focus(), 500)
-  }
-
-  // Parallax the hero orbs via a CSS var written straight to the DOM,
-  // rAF-throttled, no React re-render per mousemove.
-  const handleHeroPointerMove = (event) => {
-    if (prefersReducedMotion()) return
-    const rect = event.currentTarget.getBoundingClientRect()
-    pointerRef.current.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2
-    pointerRef.current.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2
-    if (pointerFrame.current) return
-    pointerFrame.current = requestAnimationFrame(() => {
-      pointerFrame.current = 0
-      const el = heroRef.current
-      if (!el) return
-      el.style.setProperty('--pointer-x', `${pointerRef.current.x * 16}px`)
-      el.style.setProperty('--pointer-y', `${pointerRef.current.y * 14}px`)
-    })
   }
 
   const openMailClient = (name, email, message) => {
@@ -496,7 +476,7 @@ function App() {
         </header>
 
         <main id="top">
-          <section className="hero" ref={heroRef} onMouseMove={handleHeroPointerMove}>
+          <section className="hero">
             <div className="hero-orb orb-one" />
             <div className="hero-orb orb-two" />
 

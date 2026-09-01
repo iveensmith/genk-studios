@@ -42,6 +42,9 @@
   --r-md: 16px;
   --r-lg: 24px;
   --r-pill: 999px;
+  /* Strong custom curves. The built-in CSS easings are too weak to feel intentional. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 :root[data-theme='light'] {
@@ -75,7 +78,6 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -142,12 +144,12 @@ h1, h2, h3 {
 
 /* Scroll reveal: visible by default; JS opts in to the hide-then-reveal. */
 .reveal-up {
-  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
 }
 
 .js-reveal .reveal-up {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(12px);
 }
 
 .js-reveal .reveal-up.is-visible {
@@ -280,14 +282,17 @@ h1, h2, h3 {
   background: var(--subtle-fill);
   color: var(--white);
   cursor: pointer;
-  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.16s var(--ease-out), color 0.2s ease;
 }
 
 .theme-toggle:hover,
 .theme-toggle:focus-visible {
   border-color: rgba(229, 129, 63, 0.55);
   color: var(--primary);
-  transform: translateY(-2px);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
 }
 
 .theme-toggle svg {
@@ -305,12 +310,18 @@ h1, h2, h3 {
   font-weight: 600;
   font-size: 0.94rem;
   letter-spacing: 0;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.16s var(--ease-out), box-shadow 0.2s var(--ease-out),
+    background 0.2s ease, border-color 0.2s ease;
 }
 
 .btn:hover,
 .btn:focus-visible {
-  transform: translateY(-3px);
+  transform: translateY(-1px);
+}
+
+/* Press feedback: the interface confirms it heard the click. */
+.btn:active {
+  transform: scale(0.97);
 }
 
 .btn-primary {
@@ -348,12 +359,6 @@ h1, h2, h3 {
   filter: blur(90px);
   opacity: 0.28;
   pointer-events: none;
-  transform: translate3d(
-    calc(var(--pointer-x, 0px) * 0.5),
-    calc(var(--pointer-y, 0px) * 0.5),
-    0
-  );
-  transition: transform 0.4s ease-out;
 }
 
 .orb-one {
@@ -477,8 +482,8 @@ h1, h2, h3 {
   box-shadow: var(--shadow-lift);
   overflow: hidden;
   transform: translateY(0) rotate(var(--rot));
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-  animation: shotIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.3s ease;
+  animation: shotIn 0.7s var(--ease-out) backwards;
 }
 
 .hero-shot img {
@@ -526,7 +531,7 @@ h1, h2, h3 {
 
 .hero-shot:hover,
 .hero-shot:focus-visible {
-  transform: translateY(-8px) rotate(0deg) scale(1.05);
+  transform: translateY(-6px) rotate(0deg) scale(1.03);
   z-index: 10;
   box-shadow: 0 44px 90px -26px rgba(0, 0, 0, 0.85);
 }
@@ -557,7 +562,7 @@ h1, h2, h3 {
   border-radius: var(--r-md);
   background: var(--card);
   box-shadow: var(--shadow-card);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+  transition: border-color 0.25s ease;
 }
 
 .metric-pill span {
@@ -624,49 +629,44 @@ h1, h2, h3 {
   border-radius: var(--r-md);
   background: var(--panel-gradient);
   box-shadow: var(--shadow-card);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease;
   position: relative;
   overflow: hidden;
 }
 
+/* One restrained corner glow per card. Direction shifts per position so the
+   row doesn't read as three identical tiles. */
 .work-card::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
-  background:
-    radial-gradient(130% 90% at 12% 8%, rgba(229, 129, 63, 0.28), transparent 55%),
-    radial-gradient(100% 80% at 95% 108%, rgba(242, 149, 90, 0.1), transparent 60%),
-    repeating-radial-gradient(circle at 86% 16%, rgba(229, 129, 63, 0.1) 0 1px, transparent 1px 56px);
+  background: radial-gradient(120% 90% at 12% 6%, rgba(229, 129, 63, 0.16), transparent 58%);
 }
 
 .work-grid .work-card:nth-child(2)::before {
-  background:
-    radial-gradient(120% 90% at 92% 8%, rgba(229, 129, 63, 0.24), transparent 55%),
-    radial-gradient(110% 90% at 4% 100%, rgba(255, 255, 255, 0.05), transparent 60%),
-    repeating-radial-gradient(circle at 10% 88%, rgba(229, 129, 63, 0.09) 0 1px, transparent 1px 54px);
+  background: radial-gradient(120% 90% at 94% 6%, rgba(229, 129, 63, 0.14), transparent 58%);
 }
 
 .work-grid .work-card:nth-child(3)::before {
-  background:
-    radial-gradient(90% 70% at 50% -5%, rgba(229, 129, 63, 0.22), transparent 60%),
-    radial-gradient(120% 100% at 50% 120%, rgba(242, 149, 90, 0.08), transparent 55%),
-    repeating-radial-gradient(circle at 102% 50%, rgba(229, 129, 63, 0.08) 0 1px, transparent 1px 62px);
+  background: radial-gradient(90% 130% at 50% -10%, rgba(229, 129, 63, 0.12), transparent 60%);
 }
 
+/* Non-interactive cards: a quiet border warm-up on hover, no travel.
+   Cards that don't go anywhere shouldn't behave like buttons. */
 .work-card:hover,
 .service-item:hover,
+.engagement-card:hover,
 .metric-pill:hover,
-.process-steps div:hover,
-.case-study-card:hover,
-.engagement-card:hover {
-  transform: translateY(-6px);
-  border-color: rgba(229, 129, 63, 0.4);
-  box-shadow: var(--shadow-lift);
+.process-steps div:hover {
+  border-color: rgba(229, 129, 63, 0.32);
 }
 
-.work-card:hover .work-card-body {
-  transform: translateY(-6px);
+/* The case-study card is a real link, so it earns the lift. */
+.case-study-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(229, 129, 63, 0.4);
+  box-shadow: var(--shadow-lift);
 }
 
 .work-card-body {
@@ -674,7 +674,6 @@ h1, h2, h3 {
   gap: 12px;
   position: relative;
   z-index: 2;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .work-index {
@@ -715,7 +714,7 @@ h1, h2, h3 {
   border-radius: var(--r-md);
   background: var(--card);
   box-shadow: var(--shadow-card);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s var(--ease-out), border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .case-study-image {
@@ -733,7 +732,7 @@ h1, h2, h3 {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s var(--ease-out);
 }
 
 .case-study-image::after {
@@ -752,7 +751,7 @@ h1, h2, h3 {
 }
 
 .case-study-card:hover .case-study-image img {
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
 
 .case-study-copy {
@@ -862,7 +861,7 @@ h1, h2, h3 {
   border-radius: var(--r-md);
   background: var(--bg);
   box-shadow: var(--shadow-card);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease;
   position: relative;
   overflow: hidden;
 }
@@ -968,7 +967,7 @@ h1, h2, h3 {
   border-radius: var(--r-md);
   background: var(--card);
   box-shadow: var(--shadow-card);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease;
 }
 
 .engagement-card h3 {
@@ -1032,12 +1031,16 @@ h1, h2, h3 {
   font: inherit;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.16s var(--ease-out);
 }
 
 .choice-button:hover,
 .choice-button:focus-visible {
   border-color: rgba(229, 129, 63, 0.55);
+}
+
+.choice-button:active {
+  transform: scale(0.96);
 }
 
 .choice-button.active {
@@ -1156,6 +1159,11 @@ h1, h2, h3 {
   margin: 0;
   color: var(--muted);
   font-size: 0.85rem;
+  animation: formStatusIn 0.32s var(--ease-out) both;
+}
+
+@keyframes formStatusIn {
+  from { opacity: 0; transform: translateY(6px); }
 }
 
 .form-status a { color: var(--primary); }
@@ -1215,7 +1223,7 @@ h1, h2, h3 {
 .footer-legal a {
   color: var(--muted);
   font-size: 0.9rem;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .footer-column a:hover,
@@ -1225,11 +1233,6 @@ h1, h2, h3 {
 .footer-email:hover,
 .footer-email:focus-visible {
   color: var(--white);
-}
-
-.footer-column a:hover,
-.footer-column a:focus-visible {
-  transform: translateX(3px);
 }
 
 .footer-bottom {
@@ -1260,15 +1263,19 @@ h1, h2, h3 {
   color: var(--white);
   font-size: 1.2rem;
   line-height: 1;
-  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  transition: transform 0.16s var(--ease-out), border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
 }
 
 .back-to-top:hover,
 .back-to-top:focus-visible {
-  transform: translateY(-3px);
+  transform: translateY(-2px);
   border-color: var(--primary);
   background: var(--primary);
   color: var(--on-primary);
+}
+
+.back-to-top:active {
+  transform: scale(0.92);
 }
 
 /* Mobile nav */
@@ -1391,6 +1398,7 @@ h1, h2, h3 {
   .case-study-image img { transition: none; }
   .hero-shot { animation: none; opacity: 1; }
   .hero-enter { animation: none; opacity: 1; transform: none; }
+  .form-status { animation: none; }
 }
 
 @media (max-width: 720px) {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import LegalPage from './LegalPage.jsx'
 import { useTheme, ThemeToggle } from './theme.jsx'
@@ -16,66 +16,6 @@ import detailWorkflowAuth from './assets/detail-workflowauth.jpg'
 
 const CONTACT_EMAIL = 'genkstudios05@gmail.com'
 const WEB3FORMS_KEY = import.meta.env.VITE_WEB3FORMS_KEY
-
-const prefersReducedMotion = () =>
-  typeof window !== 'undefined' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-function CountUp({ value, duration = 1400 }) {
-  const raw = String(value)
-
-  // Parse once: a leading number + trailing unit (12+, 98%, 4).
-  // Anything else (e.g. "24/7") renders as-is.
-  const { isCount, target, suffix, decimals } = useMemo(() => {
-    const m = raw.match(/^(\d+(?:\.\d+)?)([^/]*)$/s)
-    if (!m) return { isCount: false, target: 0, suffix: raw, decimals: 0 }
-    return {
-      isCount: true,
-      target: parseFloat(m[1]),
-      suffix: m[2],
-      decimals: m[1].includes('.') ? m[1].split('.')[1].length : 0,
-    }
-  }, [raw])
-
-  const [display, setDisplay] = useState(isCount ? 0 : target)
-
-  useEffect(() => {
-    if (!isCount) return
-
-    if (prefersReducedMotion()) {
-      setDisplay(target)
-      return
-    }
-
-    let frame = 0
-    let startTime = 0
-
-    const step = (now) => {
-      // Seed the clock on the first real frame. If the tab was
-      // backgrounded, rAF is paused and simply resumes here.
-      if (!startTime) startTime = now
-      const progress = Math.min((now - startTime) / duration, 1)
-      setDisplay(target * (1 - Math.pow(1 - progress, 3)))
-      if (progress < 1) frame = requestAnimationFrame(step)
-    }
-
-    const kickoff = setTimeout(() => {
-      frame = requestAnimationFrame(step)
-    }, 150)
-
-    return () => {
-      clearTimeout(kickoff)
-      if (frame) cancelAnimationFrame(frame)
-    }
-  }, [isCount, target, duration])
-
-  return (
-    <span>
-      {isCount ? display.toFixed(decimals) : ''}
-      {suffix}
-    </span>
-  )
-}
 
 function Brand() {
   return (
@@ -516,7 +456,12 @@ function App() {
                     className={`hero-shot hero-shot-${index + 1}`}
                     aria-label={`${study.title}: read the case study`}
                   >
-                    <img src={study.image} alt={`${study.title} website`} loading="lazy" />
+                    <img
+                      src={study.image}
+                      alt={`${study.title} website`}
+                      decoding="async"
+                      fetchPriority={index === 1 ? 'high' : 'auto'}
+                    />
                     <span className="hero-shot-label">{study.title}</span>
                   </a>
                 ))}
@@ -530,7 +475,7 @@ function App() {
                   className="metric-pill hero-enter"
                   style={{ animationDelay: `${0.34 + index * 0.08}s` }}
                 >
-                  <CountUp value={stat.value} />
+                  <span>{stat.value}</span>
                   <small>{stat.label}</small>
                 </div>
               ))}

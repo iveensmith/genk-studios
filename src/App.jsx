@@ -423,14 +423,9 @@ function App() {
             <div className="container hero-layout">
               <div className="hero-copy">
                 <div className="hero-intro hero-enter">Digital product studio</div>
-                <h1
-                  className="hero-title"
-                  aria-label="Build a digital presence that moves your business forward."
-                >
-                  <span className="hero-title-inner" aria-hidden="true">
-                    <span className="hero-title-line">Build a digital presence</span>
-                    <span className="hero-title-line dim">that moves your business forward.</span>
-                  </span>
+                <h1 className="hero-title hero-enter">
+                  <span className="hero-title-line">Build a digital presence</span>
+                  <span className="hero-title-line">that moves your business forward.</span>
                 </h1>
 
                 <div className="hero-meta hero-enter hero-enter-2">
